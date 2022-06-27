@@ -1,0 +1,35 @@
+.button {
+  padding: 0 40px;
+  margin: auto;
+}
+
+.buttonContainer {
+  margin-top: 33px;
+  display: flex;
+  flex-direction: column;
+}
+
+.link {
+  margin: auto;
+  margin-top: 10px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 21px;
+  color: #e73f3f;
+}
+
+.warningWrapper {
+  position: relative;
+}
+
+.warningContainer {
+  position: absolute;
+  color: #e73f3f;
+  top: 12px;
+}
+
+.warningText {
+  color: #e73f3f;
+  font-size: 14px;
+  margin-left: 6px;
+}

@@ -1,0 +1,29 @@
+@import "../../../Styles/globalColor";
+
+.section {
+  height: 100vh;
+}
+
+.formContainer {
+  max-width: 400px;
+  margin: auto;
+  margin-top: 80px;
+}
+
+.logoContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.formWrapper {
+  width: 100%;
+  margin-top: 75px;
+}
+
+.rightContent {
+  background-color: $white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

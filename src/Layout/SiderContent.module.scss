@@ -1,0 +1,42 @@
+.siderWrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: space-between;
+}
+
+.imgWrapper {
+  margin-top: 32px;
+  margin-bottom: 32px;
+  text-align: center;
+}
+
+.img {
+  margin: auto;
+}
+
+.moreIcon {
+  position: absolute;
+  top: 50%;
+  right: 16px;
+  width: 10px;
+  transform: translateY(-50%);
+  transition: transform 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+.logoutBtn {
+  margin: 32px 12px;
+  background-color: #fff2e7;
+  color: #ff7506;
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  line-height: 24px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  height: auto;
+
+  &:hover {
+    background-color: #fff2e7;
+  }
+}

@@ -1,0 +1,50 @@
+@import "../Styles/globalColor";
+
+.headerWrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.avatarContainer {
+  display: flex;
+  align-items: center;
+}
+
+.notificationButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 32px;
+  width: 32px;
+  min-width: 32px;
+  margin-right: 24px;
+}
+
+.infoContainer {
+  display: flex;
+  align-items: center;
+  margin-right: 14px;
+}
+
+.nameContainer {
+  margin-left: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.hello {
+  font-size: 12px;
+  line-height: 18px;
+  color: $gray-300;
+}
+
+.name {
+  line-height: 24px;
+  font-size: 16px;
+  font-weight: 700;
+  color: $gray-400;
+}
