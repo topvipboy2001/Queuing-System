@@ -1,15 +1,15 @@
 import { Table } from "antd";
 import { ColumnsType } from "antd/lib/table";
-import React from "react";
+import React, { FC } from "react";
+import { Link } from "react-router-dom";
+import { RoleType } from "../../../State/ActionTypes/RoleActionType";
 
-interface Datatype {
-  key: string;
-  name: string;
-  amountNumber: number;
-  description: string;
+interface IManageRoleTable {
+  loading: boolean;
+  data: RoleType[];
 }
 
-const columns: ColumnsType<Datatype> = [
+const columns: ColumnsType<RoleType> = [
   {
     title: "Tên vai trò",
     key: "name",
@@ -18,8 +18,8 @@ const columns: ColumnsType<Datatype> = [
 
   {
     title: "Số người dùng",
-    key: "amountUser",
-    dataIndex: "amountUser",
+    key: "amountOfUser",
+    dataIndex: "amountOfUser",
   },
 
   {
@@ -28,18 +28,28 @@ const columns: ColumnsType<Datatype> = [
     dataIndex: "description",
   },
 
-  {},
+  {
+    key: "action",
+
+    render: (value, record, index) => {
+      return (
+        <Link
+          to={`/setting/manage-roles/${value.id}`}
+          style={{ color: "#4277FF", textDecorationLine: "underline" }}
+        >
+          Cập nhật
+        </Link>
+      );
+    },
+  },
 ];
 
-const data: Datatype[] = [
- 
-];
-
-const ManageRoleTable = () => {
+const ManageRoleTable: FC<IManageRoleTable> = (props) => {
   return (
     <Table
+      loading={props.loading}
       columns={columns}
-      dataSource={data}
+      dataSource={props.data.map((value) => ({ ...value, key: value.id }))}
       bordered
       size="middle"
       pagination={{ position: ["bottomRight"] }}

@@ -1,6 +1,6 @@
 import { Button, Image, Menu, MenuProps } from "antd";
 import Icon from "@ant-design/icons";
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./SiderContent.module.scss";
 import logo from "../Assets/logo.svg";
 import { ReactComponent as layerSvg } from "../Assets/layer-group.svg";
@@ -112,6 +112,10 @@ const SiderContent = () => {
     dispatch(LogOutAction());
     navigate("/auth");
   };
+
+  // useEffect(() => {
+  //   console.log(location);
+  // }, [location]);
 
   return (
     <div className={styles.siderWrapper}>

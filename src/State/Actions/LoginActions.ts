@@ -1,7 +1,7 @@
 import { Dispatch } from "react";
 import { db } from "../../Config/firebase";
 import { ELogin, ILoginDispatchTypes } from "../ActionTypes/LoginActionTypes";
-import { collection, getDocs, query, where } from "firebase/firestore";
+import { collection, getDoc, getDocs, query, where } from "firebase/firestore";
 
 export const LoginActions =
   (username: string, password: string) =>
@@ -21,8 +21,13 @@ export const LoginActions =
       );
 
       const querySnapshot = await getDocs(q);
-      querySnapshot.forEach((doc) => {
+      querySnapshot.forEach(async (doc) => {
         user = doc.data();
+        console.log(user);
+        if (user.role) {
+          const role = await getDoc(user.role);
+          console.log(role.data());
+        }
         localStorage.setItem("userId", doc.id);
       });
 

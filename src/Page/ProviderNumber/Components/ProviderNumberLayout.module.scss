@@ -1,0 +1,26 @@
+@import "../../../Styles/globalColor";
+
+.section {
+  margin: 16px 0 20px 24px;
+}
+
+.title {
+  color: $orange-500 !important;
+}
+
+.inputContainer {
+  margin-right: 100px;
+}
+
+.selectContianer {
+  width: 154px;
+}
+
+.buttonContainer {
+  margin-top: 24px;
+}
+
+.button {
+  height: 48px;
+  width: 115px;
+}

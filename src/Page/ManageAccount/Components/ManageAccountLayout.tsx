@@ -1,13 +1,19 @@
 import { CaretDownOutlined } from "@ant-design/icons";
 import { Col, Form, Row, Select, Typography } from "antd";
-import React from "react";
+import React, { FC } from "react";
 import SearchInput from "../../../Components/SearchInput";
+import { UserType } from "../../../State/ActionTypes/UserActionTypes";
 import styles from "./ManageAccountLayout.module.scss";
 import ManageAccountTable from "./ManageAccountTable";
 
+interface IManageAccountLayout {
+  loading: boolean;
+  data: UserType[];
+}
+
 const { Option } = Select;
 
-const ManageAccountLayout = () => {
+const ManageAccountLayout: FC<IManageAccountLayout> = (props) => {
   return (
     <div className={styles.section}>
       <Typography.Title level={2} className={styles.title}>
@@ -45,7 +51,7 @@ const ManageAccountLayout = () => {
       </Form>
       <Row>
         <Col flex="auto">
-          <ManageAccountTable />
+          <ManageAccountTable loading={props.loading} data={props.data} />
         </Col>
         <Col flex="100px"></Col>
       </Row>

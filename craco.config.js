@@ -44,6 +44,12 @@ module.exports = {
               "@table-header-color": "#FFFFFF ",
               "@table-border-radius-base": "10px",
               "@table-padding-horizontal": "32px",
+              //card
+              "@card-radius": "16px",
+              //checkBox
+              "@checkbox-size": "20px",
+              "@checkbox-color": "#4277FF",
+              "@checkbox-border-radius": "4px",
             },
             javascriptEnabled: true,
           },

@@ -11,7 +11,10 @@ import DeviceUpdate from "../Page/DeviceUpdate";
 import History from "../Page/History";
 import Info from "../Page/Info";
 import ManageAccount from "../Page/ManageAccount/Index";
+import ManageAccountAdd from "../Page/ManageAccountAdd";
+import ManageAccountUpdate from "../Page/ManageAccountUpdate";
 import ManageRole from "../Page/ManageRole";
+import ManageRoleAdd from "../Page/ManageRoleAdd";
 import ProviderNumber from "../Page/ProviderNumber";
 import Services from "../Page/Services";
 
@@ -48,8 +51,17 @@ const ContextRoute = () => {
             </Route>
 
             <Route path="/setting">
-              <Route path="accounts" element={<ManageAccount />} />
-              <Route path="manage-roles" element={<ManageRole />} />
+              <Route path="accounts">
+                <Route index element={<ManageAccount />} />
+                <Route path="add" element={<ManageAccountAdd />} />
+                <Route path="update/:id" element={<ManageAccountUpdate />} />
+              </Route>
+
+              <Route path="manage-roles">
+                <Route index element={<ManageRole />} />
+                <Route path="add" element={<ManageRoleAdd />} />
+              </Route>
+
               <Route path="user-history" element={<History />} />
             </Route>
           </Routes>

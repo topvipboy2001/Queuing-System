@@ -1,10 +1,16 @@
 import { Col, Form, Row, Typography } from "antd";
-import React from "react";
+import React, { FC } from "react";
 import SearchInput from "../../../Components/SearchInput";
+import { RoleType } from "../../../State/ActionTypes/RoleActionType";
 import styles from "./ManageRoleLayout.module.scss";
 import ManageRoleTable from "./ManageRoleTable";
 
-const ManageRoleLayout = () => {
+interface IManageRoleLayout {
+  loading: boolean;
+  data: RoleType[];
+}
+
+const ManageRoleLayout: FC<IManageRoleLayout> = (props) => {
   return (
     <div className={styles.section}>
       <Form layout="vertical">
@@ -25,7 +31,7 @@ const ManageRoleLayout = () => {
         </Row>
         <Row>
           <Col flex="auto">
-            <ManageRoleTable />
+            <ManageRoleTable loading={props.loading} data={props.data} />
           </Col>
           <Col flex="100px"></Col>
         </Row>

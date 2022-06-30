@@ -40,7 +40,21 @@ const columns: ColumnsType<Datatype> = [
 ];
 
 const data: Datatype[] = [
+  {
+    key: "1",
+    id: "123",
+    name: "Kiosk",
+    description: "Hello my name is Khang",
+    active: true,
+  },
 
+  {
+    key: "2",
+    id: "123",
+    name: "Kiosk",
+    description: "Hello my name is Khang",
+    active: true,
+  },
 ];
 
 const ServicesTable = () => {

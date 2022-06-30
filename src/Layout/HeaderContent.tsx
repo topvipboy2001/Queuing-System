@@ -23,7 +23,7 @@ const HeaderContent = () => {
           <Avatar size={40} src={<Image src={avatar} preview={false} />} />
           <div className={styles.nameContainer}>
             <Text className={styles.hello}>Xin chào</Text>
-            <Text className={styles.name}>Lê Quỳnh Ái Vân</Text>
+            <Text className={styles.name}>Huỳnh Lâm Khánh Duy</Text>
           </div>
         </Link>
       </div>
