@@ -1,20 +1,20 @@
 import { Table } from "antd";
 import { ColumnsType } from "antd/lib/table";
-import React from "react";
+import React, { FC } from "react";
+import { Link } from "react-router-dom";
+import Status from "../../../Components/Status";
+import { ServiceType } from "../../../State/ActionTypes/ServicesActionTypes";
 
-interface Datatype {
-  key: string;
-  id: string;
-  name: string;
-  description: string;
-  active: boolean;
+interface IServicesTable {
+  loading: boolean;
+  data: ServiceType[];
 }
 
-const columns: ColumnsType<Datatype> = [
+const columns: ColumnsType<ServiceType> = [
   {
     title: "Mã dịch vụ",
     key: "id",
-    dataIndex: "name",
+    dataIndex: "id",
   },
   {
     title: "Tên dịch vụ",
@@ -30,38 +30,52 @@ const columns: ColumnsType<Datatype> = [
 
   {
     title: "Trạng thái hoạt động",
-    key: "active",
-    dataIndex: "active",
-  },
-
-  {},
-
-  {},
-];
-
-const data: Datatype[] = [
-  {
-    key: "1",
-    id: "123",
-    name: "Kiosk",
-    description: "Hello my name is Khang",
-    active: true,
+    key: "isActive",
+    dataIndex: "isActive",
+    render(value, record, index) {
+      return value ? (
+        <Status type="success" text="Hoạt động" />
+      ) : (
+        <Status type="error" text="Ngưng hoạt động" />
+      );
+    },
   },
 
   {
-    key: "2",
-    id: "123",
-    name: "Kiosk",
-    description: "Hello my name is Khang",
-    active: true,
+    key: "detail",
+    render(value, record, index) {
+      return (
+        <Link
+          to={`/services/${record.id}`}
+          style={{ color: "#4277FF", textDecorationLine: "underline" }}
+        >
+          Chi tiết
+        </Link>
+      );
+    },
+  },
+
+  {
+    key: "update",
+    render(value, record, index) {
+      return (
+        <Link
+          to={`/services/update/${record.id}`}
+          style={{ color: "#4277FF", textDecorationLine: "underline" }}
+        >
+          Cập nhật
+        </Link>
+      );
+    },
   },
 ];
 
-const ServicesTable = () => {
+const ServicesTable: FC<IServicesTable> = (props) => {
   return (
     <Table
+      loading={props.loading}
       columns={columns}
-      dataSource={data}
+      dataSource={props.data.map((value) => ({ ...value, key: value.id }))}
       bordered
       size="middle"
       pagination={{ position: ["bottomRight"] }}

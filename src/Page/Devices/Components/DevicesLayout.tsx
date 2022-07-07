@@ -1,13 +1,24 @@
 import { CaretDownOutlined } from "@ant-design/icons";
 import { Col, Form, Row, Select, Space, Typography } from "antd";
-import React from "react";
+import React, { FC } from "react";
+import ButtonSide from "../../../Components/ButtonSide";
 import SearchInput from "../../../Components/SearchInput";
 import styles from "./DevicesLayout.module.scss";
 import DevicesTable from "./DevicesTable";
+import { ReactComponent as addSvg } from "../../../Assets/AddSquare.svg";
+import { useNavigate } from "react-router-dom";
+import { DeviceType } from "../../../State/ActionTypes/DevicesActionTypes";
+
+interface IDevicesLayout {
+  loading: boolean;
+  data: DeviceType[];
+}
 
 const { Option } = Select;
 
-const DevicesLayout = () => {
+const DevicesLayout: FC<IDevicesLayout> = (props) => {
+  const navigate = useNavigate();
+
   return (
     <div className={styles.section}>
       <Row>
@@ -71,9 +82,21 @@ const DevicesLayout = () => {
       </Form>
       <Row>
         <Col flex="auto">
-          <DevicesTable />
+          <DevicesTable loading={props.loading} data={props.data} />
         </Col>
-        <Col flex="100px"></Col>
+        <Col flex="100px">
+          <ButtonSide
+            content={[
+              {
+                label: "Thêm thiết bị",
+                icon: addSvg,
+                onClick: () => {
+                  navigate("/devices/add");
+                },
+              },
+            ]}
+          />
+        </Col>
       </Row>
     </div>
   );

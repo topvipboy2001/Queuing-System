@@ -1,13 +1,24 @@
 import { CaretDownOutlined } from "@ant-design/icons";
 import { Col, DatePicker, Form, Row, Select, Space, Typography } from "antd";
-import React from "react";
+import React, { FC } from "react";
+import { useNavigate } from "react-router-dom";
+import ButtonSide from "../../../Components/ButtonSide";
 import SearchInput from "../../../Components/SearchInput";
+import { ProviderType } from "../../../State/ActionTypes/ProvidersActionTypes";
 import styles from "./ProviderNumberLayout.module.scss";
 import ProviderNumberTable from "./ProviderNumberTable";
+import { ReactComponent as addSvg } from "../../../Assets/AddSquare.svg";
+
+interface IProviderNumberLayout {
+  loading: boolean;
+  data: ProviderType[];
+}
 
 const { Option } = Select;
 
-const ProviderNumberLayout = () => {
+const ProviderNumberLayout: FC<IProviderNumberLayout> = (props) => {
+  const navigate = useNavigate();
+
   return (
     <div className={styles.section}>
       <Row>
@@ -98,9 +109,21 @@ const ProviderNumberLayout = () => {
       </Form>
       <Row>
         <Col flex="auto">
-          <ProviderNumberTable />
+          <ProviderNumberTable data={props.data} loading={props.loading} />
         </Col>
-        <Col flex="100px"></Col>
+        <Col flex="100px">
+          <ButtonSide
+            content={[
+              {
+                label: "Cấp số mới",
+                icon: addSvg,
+                onClick: () => {
+                  navigate("/provider/add");
+                },
+              },
+            ]}
+          />
+        </Col>
       </Row>
     </div>
   );

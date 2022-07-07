@@ -2,7 +2,8 @@ import { Table } from "antd";
 import { ColumnsType } from "antd/lib/table";
 import React, { FC } from "react";
 import { Link } from "react-router-dom";
-import { UserType } from "../../../State/ActionTypes/UserActionTypes";
+import Status from "../../../Components/Status";
+import { UserType } from "../../../State/ActionTypes/UsersActionTypes";
 
 interface IManageAccountTable {
   loading: boolean;
@@ -37,6 +38,9 @@ const columns: ColumnsType<any> = [
     title: "Vai trò",
     key: "role",
     dataIndex: "role",
+    render(value, record, index) {
+      return <>{value.name}</>;
+    },
   },
 
   {
@@ -44,7 +48,11 @@ const columns: ColumnsType<any> = [
     key: "isActive",
     dataIndex: "isActive",
     render: (value, record, index) => {
-      return value ? "Hoạt động" : "Ngừng hoạt động";
+      return value ? (
+        <Status type="success" text="Hoạt động" />
+      ) : (
+        <Status type="error" text="Ngừng hoạt động" />
+      );
     },
   },
 

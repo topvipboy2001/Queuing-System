@@ -1,8 +1,8 @@
 import { message } from "antd";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { roleAddAction } from "../../State/Actions/RoleActions";
-import { RoleAddType } from "../../State/ActionTypes/RoleActionType";
+import { roleAddAction } from "../../State/Actions/RolesActions";
+import { RoleAddType } from "../../State/ActionTypes/RolesActionType";
 import { RootStore } from "../../State/Store";
 import ManageRoleAddLayout from "./Components/ManageRoleAddLayout";
 
@@ -16,7 +16,7 @@ export type valuesSubmitRoleAddType = {
 
 const ManageRoleAdd = () => {
   const dispatch = useDispatch();
-  const state = useSelector((state: RootStore) => state.role);
+  const state = useSelector((state: RootStore) => state.roles);
 
   const onFinish = async (values: valuesSubmitRoleAddType) => {
     const authority = [

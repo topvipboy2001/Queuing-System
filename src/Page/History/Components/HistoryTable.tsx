@@ -40,29 +40,7 @@ const columns: ColumnsType<DataType> = [
 ];
 
 const data: DataType[] = [
-  {
-    key: "1",
-    username: "topvipboy",
-    time: new Date(),
-    ip: "111.111.111.111",
-    actionImplemented: "Cập nhật thông tin",
-  },
 
-  {
-    key: "2",
-    username: "topvipboy",
-    time: new Date(),
-    ip: "111.111.111.111",
-    actionImplemented: "Cập nhật thông tin",
-  },
-
-  {
-    key: "3",
-    username: "topvipboy",
-    time: new Date(),
-    ip: "111.111.111.111",
-    actionImplemented: "Cập nhật thông tin",
-  },
 ];
 
 const HistoryTable = () => {

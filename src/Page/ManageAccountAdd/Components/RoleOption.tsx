@@ -1,6 +1,6 @@
 import { Select } from "antd";
 import React, { FC } from "react";
-import { RoleType } from "../../../State/ActionTypes/RoleActionType";
+import { RoleType } from "../../../State/ActionTypes/RolesActionType";
 
 interface IRoleOption {
   roleData: RoleType[];

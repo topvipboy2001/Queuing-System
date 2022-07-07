@@ -1,13 +1,24 @@
 import { CaretDownOutlined } from "@ant-design/icons";
 import { Col, DatePicker, Form, Row, Select, Space, Typography } from "antd";
-import React from "react";
+import React, { FC } from "react";
+import ButtonSide from "../../../Components/ButtonSide";
 import SearchInput from "../../../Components/SearchInput";
+import { ServiceType } from "../../../State/ActionTypes/ServicesActionTypes";
 import styles from "./ServicesLayout.module.scss";
 import ServicesTable from "./ServicesTable";
+import { ReactComponent as addSvg } from "../../../Assets/AddSquare.svg";
+import { useNavigate } from "react-router-dom";
+
+interface IServicesLayout {
+  loading: boolean;
+  data: ServiceType[];
+}
 
 const { Option } = Select;
 
-const ServicesLayout = () => {
+const ServicesLayout: FC<IServicesLayout> = (props) => {
+  const navigate = useNavigate();
+
   return (
     <div className={styles.section}>
       <Row>
@@ -66,9 +77,21 @@ const ServicesLayout = () => {
 
       <Row>
         <Col flex="auto">
-          <ServicesTable />
+          <ServicesTable loading={props.loading} data={props.data} />
         </Col>
-        <Col flex="100px"></Col>
+        <Col flex="100px">
+          <ButtonSide
+            content={[
+              {
+                label: "Thêm dịch vụ",
+                icon: addSvg,
+                onClick: () => {
+                  navigate("/services/add");
+                },
+              },
+            ]}
+          />
+        </Col>
       </Row>
     </div>
   );

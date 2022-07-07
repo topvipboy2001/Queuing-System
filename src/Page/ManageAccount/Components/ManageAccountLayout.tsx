@@ -2,9 +2,12 @@ import { CaretDownOutlined } from "@ant-design/icons";
 import { Col, Form, Row, Select, Typography } from "antd";
 import React, { FC } from "react";
 import SearchInput from "../../../Components/SearchInput";
-import { UserType } from "../../../State/ActionTypes/UserActionTypes";
+import { UserType } from "../../../State/ActionTypes/UsersActionTypes";
 import styles from "./ManageAccountLayout.module.scss";
 import ManageAccountTable from "./ManageAccountTable";
+import { ReactComponent as addSvg } from "../../../Assets/AddSquare.svg";
+import ButtonSide from "../../../Components/ButtonSide";
+import { useNavigate } from "react-router-dom";
 
 interface IManageAccountLayout {
   loading: boolean;
@@ -14,6 +17,8 @@ interface IManageAccountLayout {
 const { Option } = Select;
 
 const ManageAccountLayout: FC<IManageAccountLayout> = (props) => {
+  const navigate = useNavigate();
+
   return (
     <div className={styles.section}>
       <Typography.Title level={2} className={styles.title}>
@@ -53,7 +58,19 @@ const ManageAccountLayout: FC<IManageAccountLayout> = (props) => {
         <Col flex="auto">
           <ManageAccountTable loading={props.loading} data={props.data} />
         </Col>
-        <Col flex="100px"></Col>
+        <Col flex="100px">
+          <ButtonSide
+            content={[
+              {
+                label: "Thêm tài khoản",
+                icon: addSvg,
+                onClick: () => {
+                  navigate("/setting/accounts/add");
+                },
+              },
+            ]}
+          />
+        </Col>
       </Row>
     </div>
   );

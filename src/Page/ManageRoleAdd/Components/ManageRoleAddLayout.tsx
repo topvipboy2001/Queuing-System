@@ -9,6 +9,7 @@ import {
   Typography,
 } from "antd";
 import React, { FC } from "react";
+import { Link } from "react-router-dom";
 import { valuesSubmitRoleAddType } from "..";
 import styles from "./ManageRoleAddLayout.module.scss";
 
@@ -28,7 +29,7 @@ const ManageRoleAddLayout: FC<IManageRoleAddLayout> = (props) => {
       className={styles.section}
     >
       <Title level={2} className={styles.title}>
-        Quản lý tài khoản
+        Danh sách vai trò
       </Title>
 
       <Row>
@@ -171,15 +172,17 @@ const ManageRoleAddLayout: FC<IManageRoleAddLayout> = (props) => {
 
       <Row gutter={32} justify="center" className={styles.buttonContainer}>
         <Col>
-          <Button
-            size="large"
-            type="primary"
-            ghost
-            className={styles.button}
-            disabled={props.loading}
-          >
-            Hủy bỏ
-          </Button>
+          <Link to="/setting/manage-roles">
+            <Button
+              size="large"
+              type="primary"
+              ghost
+              className={styles.button}
+              disabled={props.loading}
+            >
+              Hủy bỏ
+            </Button>
+          </Link>
         </Col>
         <Col>
           <Button

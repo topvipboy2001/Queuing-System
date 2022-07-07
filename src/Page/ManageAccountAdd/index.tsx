@@ -1,16 +1,16 @@
 import { message } from "antd";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { roleGetAction } from "../../State/Actions/RoleActions";
-import { userAddAction } from "../../State/Actions/UserActions";
-import { UserAddType } from "../../State/ActionTypes/UserActionTypes";
+import { roleGetAction } from "../../State/Actions/RolesActions";
+import { userAddAction } from "../../State/Actions/UsersActions";
+import { UserAddType } from "../../State/ActionTypes/UsersActionTypes";
 import { RootStore } from "../../State/Store";
 import ManageAccountAddLayout from "./Components/ManageAccountAddLayout";
 
 const ManageAccountAdd = () => {
   const dispatch = useDispatch();
-  const roleState = useSelector((state: RootStore) => state.role);
-  const state = useSelector((state: RootStore) => state.user);
+  const roleState = useSelector((state: RootStore) => state.roles);
+  const state = useSelector((state: RootStore) => state.users);
 
   useEffect(() => {
     const fetchRoles = async () => {
@@ -37,10 +37,9 @@ const ManageAccountAdd = () => {
       };
 
       await dispatch(userAddAction(actionValue));
-      message.success("adding a role success!");
-    } catch (error) {
-      console.log(error);
-      message.error("adding a role error!");
+      message.success("Thêm tài khoản thành công!");
+    } catch (error: any) {
+      message.error(error);
     }
   };
 

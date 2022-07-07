@@ -1,8 +1,9 @@
 import { CaretDownOutlined } from "@ant-design/icons";
 import { Button, Card, Col, Form, Input, Row, Select, Typography } from "antd";
 import React, { FC } from "react";
-import { RoleType } from "../../../State/ActionTypes/RoleActionType";
-import { UserAddType } from "../../../State/ActionTypes/UserActionTypes";
+import { Link } from "react-router-dom";
+import { RoleType } from "../../../State/ActionTypes/RolesActionType";
+import { UserAddType } from "../../../State/ActionTypes/UsersActionTypes";
 import styles from "./ManageAccountAddLayout.module.scss";
 
 interface IManageAccountLayout {
@@ -195,12 +196,15 @@ const ManageAccountAddLayout: FC<IManageAccountLayout> = (props) => {
       </Row>
       <Row gutter={32} justify="center" className={styles.buttonContainer}>
         <Col>
-          <Button size="large" type="primary" ghost className={styles.button}>
-            Hủy bỏ
-          </Button>
+          <Link to="/setting/accounts">
+            <Button size="large" type="primary" ghost className={styles.button}>
+              Hủy bỏ
+            </Button>
+          </Link>
         </Col>
         <Col>
           <Button
+            loading={props.loading}
             htmlType="submit"
             size="large"
             type="primary"

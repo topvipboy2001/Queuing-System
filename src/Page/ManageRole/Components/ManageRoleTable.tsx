@@ -2,7 +2,7 @@ import { Table } from "antd";
 import { ColumnsType } from "antd/lib/table";
 import React, { FC } from "react";
 import { Link } from "react-router-dom";
-import { RoleType } from "../../../State/ActionTypes/RoleActionType";
+import { RoleType } from "../../../State/ActionTypes/RolesActionType";
 
 interface IManageRoleTable {
   loading: boolean;
@@ -34,7 +34,7 @@ const columns: ColumnsType<RoleType> = [
     render: (value, record, index) => {
       return (
         <Link
-          to={`/setting/manage-roles/${value.id}`}
+          to={`/setting/manage-roles/update/${value.id}`}
           style={{ color: "#4277FF", textDecorationLine: "underline" }}
         >
           Cập nhật

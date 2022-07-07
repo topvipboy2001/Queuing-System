@@ -1,0 +1,39 @@
+@import "../../../Styles/globalColor";
+
+.section {
+  margin: 16px 63px 20px 24px;
+}
+
+.title {
+  color: $orange-500 !important;
+}
+
+.buttonContainer {
+  margin-top: 24px;
+}
+
+.button {
+  height: 48px;
+  width: 147px;
+}
+
+.checkBoxLabel {
+  font-weight: 600;
+  font-size: 16px;
+  color: $gray-400;
+}
+
+.providerContainer {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.providerBox1 {
+  width: 160px;
+}
+
+.providerInput {
+  width: 61px;
+  margin: 0 12px;
+}

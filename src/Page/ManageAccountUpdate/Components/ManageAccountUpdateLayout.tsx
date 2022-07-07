@@ -1,13 +1,38 @@
 import { CaretDownOutlined } from "@ant-design/icons";
 import { Button, Card, Col, Form, Input, Row, Select, Typography } from "antd";
-import React from "react";
+import { useForm } from "antd/lib/form/Form";
+import React, { FC, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { RoleType } from "../../../State/ActionTypes/RolesActionType";
+import { UserAddType } from "../../../State/ActionTypes/UsersActionTypes";
 import styles from "./ManageAccountUpdateLayout.module.scss";
+
+interface IManageAccountUpdateLayout {
+  roleLoading: boolean;
+  roleData: RoleType[];
+  onFinish: (values: UserAddType) => void;
+  initialValues: any;
+  loading: boolean;
+}
 
 const { Option } = Select;
 
-const ManageAccountUpdateLayout = () => {
+const ManageAccountUpdateLayout: FC<IManageAccountUpdateLayout> = (props) => {
+  const [form] = useForm();
+
+  useEffect(() => {
+    form.setFieldsValue(props.initialValues);
+  }, [props.initialValues, form]);
+
   return (
-    <Form layout="vertical" className={styles.section}>
+    <Form
+      initialValues={props.initialValues}
+      form={form}
+      layout="vertical"
+      className={styles.section}
+      name="update-user"
+      onFinish={props.onFinish}
+    >
       <Row>
         <Col>
           <Typography.Title level={2} className={styles.title}>
@@ -27,16 +52,24 @@ const ManageAccountUpdateLayout = () => {
 
               <Col span={12}>
                 <Form.Item
+                  name="name"
+                  required={false}
                   label={<Typography.Text strong>Họ tên:</Typography.Text>}
+                  rules={[{ required: true, message: "Vui lòng nhập họ tên" }]}
                 >
                   <Input size="large" placeholder="Nhập họ tên" />
                 </Form.Item>
               </Col>
               <Col span={12}>
                 <Form.Item
+                  name="username"
+                  required={false}
                   label={
                     <Typography.Text strong>Tên đăng nhập:</Typography.Text>
                   }
+                  rules={[
+                    { required: true, message: "Vui lòng nhập tên đăng nhập" },
+                  ]}
                 >
                   <Input size="large" placeholder="Nhập tên đăng nhập" />
                 </Form.Item>
@@ -44,16 +77,26 @@ const ManageAccountUpdateLayout = () => {
 
               <Col span={12}>
                 <Form.Item
+                  name="phoneNumber"
+                  required={false}
                   label={
                     <Typography.Text strong>Số điện thoại:</Typography.Text>
                   }
+                  rules={[
+                    { required: true, message: "Vui lòng nhập số điện thoại" },
+                  ]}
                 >
                   <Input size="large" placeholder="Nhập số điện thoại" />
                 </Form.Item>
               </Col>
               <Col span={12}>
                 <Form.Item
+                  name="password"
+                  required={false}
                   label={<Typography.Text strong>Mật khẩu:</Typography.Text>}
+                  rules={[
+                    { required: true, message: "Vui lòng nhập mật khẩu" },
+                  ]}
                 >
                   <Input.Password size="large" placeholder="Nhập mật khẩu" />
                 </Form.Item>
@@ -61,16 +104,39 @@ const ManageAccountUpdateLayout = () => {
 
               <Col span={12}>
                 <Form.Item
+                  name="email"
                   label={<Typography.Text strong>Email:</Typography.Text>}
+                  required={false}
+                  rules={[
+                    { required: true, message: "Vui lòng nhập email" },
+                    { type: "email", message: "Email không hợp lệ" },
+                  ]}
                 >
                   <Input size="large" placeholder="Nhập email" />
                 </Form.Item>
               </Col>
               <Col span={12}>
                 <Form.Item
+                  name="confirmPassword"
+                  required={false}
                   label={
                     <Typography.Text strong>Nhập lại mật khẩu:</Typography.Text>
                   }
+                  rules={[
+                    { required: true, message: "Vui lòng nhập mật khẩu" },
+                    ({ getFieldValue }) => ({
+                      validator(_, value) {
+                        if (!value || getFieldValue("password") === value) {
+                          return Promise.resolve();
+                        }
+                        return Promise.reject(
+                          new Error(
+                            "Hai trường mật khẩu bạn nhập không giống nhau"
+                          )
+                        );
+                      },
+                    }),
+                  ]}
                 >
                   <Input.Password
                     size="large"
@@ -81,7 +147,10 @@ const ManageAccountUpdateLayout = () => {
 
               <Col span={12}>
                 <Form.Item
+                  name="role"
                   label={<Typography.Text strong>Vai trò:</Typography.Text>}
+                  rules={[{ required: true, message: "Vui lòng chọn vai trò" }]}
+                  required={false}
                 >
                   <Select
                     allowClear
@@ -93,39 +162,37 @@ const ManageAccountUpdateLayout = () => {
                       />
                     }
                   >
-                    <Option key={1} value={"Khám tim mạch"}>
-                      Kế toán
-                    </Option>
-                    <Option key={2} value={"Khám sản phụ khoa"}>
-                      Quản lý
-                    </Option>
-                    <Option key={3} value={"Khám răng hàm mặt "}>
-                      Admin
-                    </Option>
+                    {props.roleData.map((value, index) => (
+                      <Select.Option key={index} value={value.id}>
+                        {value.name}
+                      </Select.Option>
+                    ))}
                   </Select>
                 </Form.Item>
               </Col>
               <Col span={12}>
                 <Form.Item
+                  name="isActive"
                   label={<Typography.Text strong>Tình trạng:</Typography.Text>}
+                  rules={[
+                    { required: true, message: "Vui lòng chọn tình trạng" },
+                  ]}
+                  required={false}
+                  initialValue={true}
                 >
                   <Select
                     allowClear
                     size="large"
-                    defaultValue={"Khám sản phụ khoa"}
                     suffixIcon={
                       <CaretDownOutlined
                         style={{ fontSize: "20px", color: "#FF7506" }}
                       />
                     }
                   >
-                    <Option key={1} value={"Khám tim mạch"}>
-                      Tất cả
-                    </Option>
-                    <Option key={2} value={"Khám sản phụ khoa"}>
+                    <Option key={2} value={false}>
                       Ngưng hoạt động
                     </Option>
-                    <Option key={3} value={"Khám răng hàm mặt "}>
+                    <Option key={3} value={true}>
                       Hoạt động
                     </Option>
                   </Select>
@@ -137,12 +204,20 @@ const ManageAccountUpdateLayout = () => {
       </Row>
       <Row gutter={32} justify="center" className={styles.buttonContainer}>
         <Col>
-          <Button size="large" type="primary" ghost className={styles.button}>
-            Hủy bỏ
-          </Button>
+          <Link to="/setting/accounts">
+            <Button size="large" type="primary" ghost className={styles.button}>
+              Hủy bỏ
+            </Button>
+          </Link>
         </Col>
         <Col>
-          <Button size="large" type="primary" className={styles.button}>
+          <Button
+            size="large"
+            type="primary"
+            className={styles.button}
+            htmlType="submit"
+            loading={props.loading}
+          >
             Cập nhật
           </Button>
         </Col>
