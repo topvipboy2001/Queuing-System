@@ -17,7 +17,7 @@ const Devices = () => {
       }
     };
     fetchDevices();
-  }, []);
+  }, [dispatch]);
 
   return <DevicesLayout loading={state.loading} data={state.current} />;
 };

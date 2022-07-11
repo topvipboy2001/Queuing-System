@@ -22,7 +22,7 @@ const ProviderNumberDetail = () => {
     };
 
     fetchProvider();
-  }, [dispatch]);
+  }, [dispatch, id]);
 
   return (
     <ProviderNumberDetailLayout loading={state.loading} data={state.current} />

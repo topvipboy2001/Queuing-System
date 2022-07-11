@@ -17,7 +17,7 @@ const ManagerRoleUpdate = () => {
   const state = useSelector((state: RootStore) => state.roles);
 
   const onFinish = async (values: ValuesSubmitRoleUpdateType) => {
-    console.log(values);
+    console.log(id);
   };
 
   return <ManageRoleUpdateLayout onFinish={onFinish} loading={state.loading} />;

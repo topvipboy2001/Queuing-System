@@ -30,6 +30,7 @@ const ManageRoleAdd = () => {
       authority: authority,
     };
     try {
+      console.log(values);
       await dispatch(roleAddAction(actionValue));
       message.success("adding a role success!");
     } catch (error) {

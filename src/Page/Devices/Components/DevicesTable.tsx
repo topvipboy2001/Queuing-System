@@ -62,7 +62,7 @@ const columns: ColumnsType<DeviceType> = [
     dataIndex: "services",
 
     render(value, record, index) {
-      const text = value.map((item: ServiceType) => item.name).join(",");
+      const text = value.map((item: ServiceType) => item.name).join(", ");
       return <Typography.Text>{text}</Typography.Text>;
     },
   },

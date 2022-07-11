@@ -70,7 +70,7 @@ const columns: ColumnsType<ProviderType> = [
     key: "sourceProvider",
     dataIndex: "sourceProvider",
     render(value, record, index) {
-      return value.name ?   <>{value.name}</> : <></>;
+      return <>{value.name}</>;
     },
   },
   {

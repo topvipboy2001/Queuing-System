@@ -1,0 +1,55 @@
+@import "../../../Styles/globalColor";
+
+.section {
+  padding: 80px 24px 30px 24px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.title {
+  color: $orange-500 !important;
+}
+
+.providerNumberDataContainer {
+  margin-bottom: 16px;
+}
+
+.iconWrapper {
+  height: 48px;
+  width: 48px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.providerNumberDataLabelContainer {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.providerNumberDataLabel {
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 18px;
+  width: 72px;
+  margin-left: 12px;
+}
+
+.providerNumberDataValue {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  span {
+    font-weight: 700;
+    font-size: 30px;
+    line-height: 45px;
+    color: $gray-400;
+  }
+}
+
+.areaChartCard {
+  flex: auto;
+}

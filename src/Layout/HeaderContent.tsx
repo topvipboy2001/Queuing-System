@@ -1,6 +1,6 @@
 import { Avatar, Breadcrumb, Button, Image, Typography } from "antd";
 import { Notification } from "iconsax-react";
-import React, { FC, Fragment, useMemo } from "react";
+import React, { Fragment, useMemo } from "react";
 import styles from "./HeaderContent.module.scss";
 import avatar from "../Assets/avatar.svg";
 import { Link, useLocation } from "react-router-dom";
