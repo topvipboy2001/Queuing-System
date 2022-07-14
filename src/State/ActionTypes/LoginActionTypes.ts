@@ -1,14 +1,20 @@
+import { UserType } from "./UsersActionTypes";
+
 export enum ELogin {
   SUCCESS = "LOGIN_SUCCESS",
   LOADING = "LOGIN_LOADING",
   FAIL = "LOGIN_FAIL",
   ERROR = "LOGIN_ERROR",
   LOGOUT = "LOGIN_LOGOUT",
+
+  LOGIN_BY_ID_SUCCESS = "LOGIN_BY_ID_SUCCESS",
+  LOGIN_BY_ID_LOADING = "LOGIN_BY_ID_LOADING",
+  LOGIN_BY_ID_ERROR = "LOGIN_BY_ID_ERROR",
 }
 
 export interface ILoginSuccess {
   type: typeof ELogin.SUCCESS;
-  user: any;
+  payload: any;
 }
 
 export interface ILoginLoading {
@@ -29,9 +35,26 @@ export interface ILogout {
   type: typeof ELogin.LOGOUT;
 }
 
+export interface ILoginByIdSuccess {
+  type: typeof ELogin.LOGIN_BY_ID_SUCCESS;
+  payload: UserType;
+}
+
+export interface ILoginByIdLoading {
+  type: typeof ELogin.LOGIN_BY_ID_LOADING;
+}
+
+export interface ILoginByIdError {
+  type: typeof ELogin.LOGIN_BY_ID_ERROR;
+  error: Error;
+}
+
 export type ILoginDispatchTypes =
   | ILoginSuccess
   | ILoginLoading
   | ILoginFail
   | ILoginError
-  | ILogout;
+  | ILogout
+  | ILoginByIdSuccess
+  | ILoginByIdLoading
+  | ILoginByIdError;

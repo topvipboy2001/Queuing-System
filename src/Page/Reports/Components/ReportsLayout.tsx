@@ -2,19 +2,16 @@ import { Col, DatePicker, Form, Row, Space, Typography } from "antd";
 import React, { FC } from "react";
 import ButtonSide from "../../../Components/ButtonSide";
 import styles from "./ReportsLayout.module.scss";
-import { ReactComponent as addSvg } from "../../../Assets/AddSquare.svg";
-import { useNavigate } from "react-router-dom";
+import { ReactComponent as documentDownloadSvg } from "../../../Assets/DocumentDownload.svg";
 import ReportsTable from "./ReportsTable";
 import { ReportsType } from "../../../State/ActionTypes/ReportsActionTypes";
-
+import { CSVLink } from "react-csv";
 interface IReportsLayout {
   loading: boolean;
   data: ReportsType[];
 }
 
 const ReportsLayout: FC<IReportsLayout> = (props) => {
-  const navigate = useNavigate();
-
   return (
     <div className={styles.section}>
       <Row>
@@ -48,17 +45,16 @@ const ReportsLayout: FC<IReportsLayout> = (props) => {
           <ReportsTable data={props.data} loading={props.loading} />
         </Col>
         <Col flex="100px">
-          <ButtonSide
-            content={[
-              {
-                label: "Cấp số mới",
-                icon: addSvg,
-                onClick: () => {
-                  navigate("/provider/add");
+          <CSVLink data={props.data} filename="report.csv">
+            <ButtonSide
+              content={[
+                {
+                  label: "Tải về",
+                  icon: documentDownloadSvg,
                 },
-              },
-            ]}
-          />
+              ]}
+            />
+          </CSVLink>
         </Col>
       </Row>
     </div>

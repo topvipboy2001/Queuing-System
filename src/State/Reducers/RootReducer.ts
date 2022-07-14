@@ -1,4 +1,5 @@
 import { combineReducers } from "redux";
+import DashboardReducer from "./DashboardReducers";
 import DeviceReducer from "./DeviceReducer";
 import DevicesReducer from "./DevicesReducers";
 import DeviceTypeReducer from "./DeviceTypesReducers";
@@ -10,6 +11,7 @@ import ResetPasswordReducer from "./ResetPasswordReducers";
 import RoleReducer from "./RolesReducer";
 import ServiceReducer from "./ServiceReducers";
 import ServicesReducer from "./ServicesReducers";
+import SourceProviderReducer from "./SourceProviderReducers";
 import UserReducer from "./UserReducers";
 import UsersReducer from "./UsersReducer";
 
@@ -27,6 +29,8 @@ const RootReducer = combineReducers({
   provider: ProviderReducers,
   providers: ProvidersReducers,
   reports: ReportsReducers,
+  dashboard: DashboardReducer,
+  sourceProvider: SourceProviderReducer,
 });
 
 export default RootReducer;

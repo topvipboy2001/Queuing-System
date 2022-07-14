@@ -1,11 +1,14 @@
-import { Avatar, Breadcrumb, Button, Image, Typography } from "antd";
-import { Notification } from "iconsax-react";
-import React, { Fragment, useMemo } from "react";
+import { Avatar, Breadcrumb, Image, Typography } from "antd";
+import React, { Fragment, useEffect, useMemo } from "react";
 import styles from "./HeaderContent.module.scss";
 import avatar from "../Assets/avatar.svg";
 import { Link, useLocation } from "react-router-dom";
 import { RightOutlined } from "@ant-design/icons";
 import useBreadcrumbs, { BreadcrumbsRoute } from "use-react-router-breadcrumbs";
+import NotificationButton from "./NotificationButton";
+import { useDispatch, useSelector } from "react-redux";
+import { RootStore } from "../State/Store";
+import { providerGetAction } from "../State/Actions/ProvidersActions";
 
 const { Text } = Typography;
 
@@ -64,6 +67,16 @@ const breadcrumbNameMap: Record<string, string> = {
 const HeaderContent = () => {
   const location = useLocation();
   const breadcrumbs = useBreadcrumbs(routes, { disableDefaults: true });
+  const providerState = useSelector((state: RootStore) => state.providers);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    try {
+      dispatch(providerGetAction());
+    } catch (error) {
+      console.log(error);
+    }
+  }, [dispatch]);
 
   const extraBreadcrumbItems = breadcrumbs.map(
     ({ match, breadcrumb }, index) => {
@@ -114,17 +127,12 @@ const HeaderContent = () => {
       </div>
 
       <div className={styles.avatarContainer}>
-        <Button
-          type="primary"
-          className={styles.notificationButton}
-          shape="circle"
-          icon={<Notification variant="Bold" size="20" />}
-        />
+        <NotificationButton providerNumberData={providerState.current} />
         <Link to="/info" className={styles.infoContainer}>
           <Avatar size={40} src={<Image src={avatar} preview={false} />} />
           <div className={styles.nameContainer}>
             <Text className={styles.hello}>Xin chào</Text>
-            <Text className={styles.name}>Huỳnh Lâm Khánh Duy</Text>
+            <Text className={styles.name}>{localStorage.getItem("name")}</Text>
           </div>
         </Link>
       </div>

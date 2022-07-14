@@ -1,7 +1,10 @@
 @import "../../../Styles/globalColor";
 
 .section {
-  margin: 16px 0px 20px 24px;
+  padding: 79px 0px 20px 24px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 .title {

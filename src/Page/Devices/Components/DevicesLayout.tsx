@@ -33,7 +33,9 @@ const DevicesLayout: FC<IDevicesLayout> = (props) => {
           <Col>
             <Space size={24}>
               <Form.Item
-                label={<Typography.Text strong>Từ khóa</Typography.Text>}
+                label={
+                  <Typography.Text strong>Trạng thái hoạt động</Typography.Text>
+                }
                 className={styles.selectContianer}
               >
                 <Select
@@ -52,7 +54,9 @@ const DevicesLayout: FC<IDevicesLayout> = (props) => {
               </Form.Item>
 
               <Form.Item
-                label={<Typography.Text strong>Từ khóa</Typography.Text>}
+                label={
+                  <Typography.Text strong>Trạng thái kết nối</Typography.Text>
+                }
                 className={styles.selectContianer}
               >
                 <Select

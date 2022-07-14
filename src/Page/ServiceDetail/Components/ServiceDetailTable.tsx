@@ -1,45 +1,52 @@
 import { ColumnsType } from "antd/lib/table";
-import React from "react";
+import React, { FC } from "react";
 import { Table } from "antd";
+import { ProviderType } from "../../../State/ActionTypes/ProvidersActionTypes";
+import Status from "../../../Components/Status";
 
-interface Datatype {
-  ordinalNumber: number;
-  status: string;
+interface IServiceDetailTable {
+  providerData: ProviderType[];
+  providerLoading: boolean;
 }
 
-const columns: ColumnsType<Datatype> = [
+const columns: ColumnsType<ProviderType> = [
   {
-    title: "Mã thiết bị",
+    title: "Số thứ tự",
     key: "ordinalNumber",
     dataIndex: "ordinalNumber",
   },
 
   {
-    title: "Tên thiết bị",
+    title: "Trạng thái",
     key: "status",
     dataIndex: "status",
+    render(value, record, index) {
+      switch (value) {
+        case 0:
+          return <Status type="error" text="Bỏ qua" />;
+        case 1:
+          return <Status type="waiting" text="Đang chờ" />;
+        case 2:
+          return <Status type="used" text="Đã sử dụng" />;
+        default:
+          return <Status type="error" text="Bỏ qua" />;
+      }
+    },
   },
 ];
 
-const data: Datatype[] = [
-  {
-    ordinalNumber: 201001,
-    status: "Đã hoàn thành",
-  },
-  {
-    ordinalNumber: 201002,
-    status: "Đã hoàn thành",
-  },
-];
-
-const ServiceDetailTable = () => {
+const ServiceDetailTable: FC<IServiceDetailTable> = (props) => {
   return (
     <Table
       columns={columns}
-      dataSource={data}
+      dataSource={props.providerData.map((value) => ({
+        ...value,
+        key: value.id,
+      }))}
+      loading={props.providerLoading}
       bordered
       size="middle"
-      pagination={{ position: ["bottomRight"] }}
+      pagination={{ position: ["bottomRight"], pageSize: 9 }}
     />
   );
 };

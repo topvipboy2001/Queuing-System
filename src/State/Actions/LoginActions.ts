@@ -1,7 +1,16 @@
 import { Dispatch } from "react";
 import { db } from "../../Config/firebase";
 import { ELogin, ILoginDispatchTypes } from "../ActionTypes/LoginActionTypes";
-import { collection, getDoc, getDocs, query, where } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  query,
+  where,
+} from "firebase/firestore";
+import { UserType } from "../ActionTypes/UsersActionTypes";
+import { RoleType } from "../ActionTypes/RolesActionType";
 
 export const LoginActions =
   (username: string, password: string) =>
@@ -11,7 +20,7 @@ export const LoginActions =
     });
 
     try {
-      let user = undefined;
+      let user: UserType | undefined;
 
       const usersRef = collection(db, "users");
       const q = query(
@@ -22,13 +31,10 @@ export const LoginActions =
 
       const querySnapshot = await getDocs(q);
       querySnapshot.forEach(async (doc) => {
-        user = doc.data();
-        console.log(user);
-        if (user.role) {
-          const role = await getDoc(user.role);
-          console.log(role.data());
-        }
+        user = doc.data() as UserType;
+
         localStorage.setItem("userId", doc.id);
+        localStorage.setItem("name", user.name);
       });
 
       if (!user) {
@@ -39,9 +45,12 @@ export const LoginActions =
         return;
       }
 
+      const role = await getDoc(user.role);
+      user = { ...user, role: { ...(role.data() as RoleType), id: role.id } };
+
       dispatch({
         type: ELogin.SUCCESS,
-        user: user,
+        payload: user,
       });
     } catch (error) {
       dispatch({
@@ -51,10 +60,33 @@ export const LoginActions =
     }
   };
 
+export const LoginByIdAction =
+  (id: string) => async (dispatch: Dispatch<ILoginDispatchTypes>) => {
+    try {
+      dispatch({ type: ELogin.LOGIN_BY_ID_LOADING });
+      const userRef = doc(db, "users", id);
+      const userSnap = await getDoc(userRef);
+      const role = await getDoc((userSnap.data() as UserType).role);
+      const userData = {
+        ...(userSnap.data() as UserType),
+        id: userSnap.id,
+        role: { ...(role.data() as RoleType), id: role.id },
+      };
+
+      dispatch({
+        type: ELogin.LOGIN_BY_ID_SUCCESS,
+        payload: userData,
+      });
+    } catch (error) {
+      dispatch({ type: ELogin.LOGIN_BY_ID_ERROR, error: error as Error });
+    }
+  };
+
 export const LogOutAction =
   () => async (dispatch: Dispatch<ILoginDispatchTypes>) => {
     dispatch({
       type: ELogin.LOGOUT,
     });
     localStorage.removeItem("userId");
+    localStorage.removeItem("name");
   };

@@ -51,6 +51,25 @@ const ProviderReducers = (
         error: action.error,
       };
 
+    case EProviders.ADD_LOADING:
+      return {
+        loading: true,
+        current: state.current,
+      };
+
+    case EProviders.ADD_SUCCESS:
+      return {
+        loading: false,
+        current: action.payload,
+      };
+
+    case EProviders.ADD_ERROR:
+      return {
+        loading: false,
+        current: state.current,
+        error: action.error,
+      };
+
     default:
       return {
         loading: false,

@@ -1,21 +1,52 @@
-import { Card, Col, DatePicker, Form, Row, Space, Typography } from "antd";
-import React from "react";
+import { CaretDownOutlined } from "@ant-design/icons";
+import {
+  Card,
+  Col,
+  DatePicker,
+  Form,
+  Row,
+  Select,
+  Space,
+  Typography,
+} from "antd";
+import React, { FC } from "react";
 import SearchInput from "../../../Components/SearchInput";
+import { ProviderType } from "../../../State/ActionTypes/ProvidersActionTypes";
 import styles from "./FilterTable.module.scss";
 import ServiceDetailTable from "./ServiceDetailTable";
 
-const FilterTable = () => {
+interface IFilterTable {
+  providerData: ProviderType[];
+  providerLoading: boolean;
+}
+
+const { Option } = Select;
+
+const FilterTable: FC<IFilterTable> = (props) => {
   return (
     <Card className={styles.card}>
       <Form layout="vertical">
-        <Row gutter={12}>
+        <Row gutter={12} style={{ height: "100%" }}>
           <Col flex="auto">
             <Space size={12}>
               <Form.Item
                 className={styles.selectContianer}
                 label={<Typography.Text strong>Trạng thái</Typography.Text>}
               >
-                <SearchInput size="large" />
+                <Select
+                  size="large"
+                  defaultValue={null}
+                  suffixIcon={
+                    <CaretDownOutlined
+                      style={{ fontSize: "20px", color: "#FF7506" }}
+                    />
+                  }
+                >
+                  <Option value={null}>Tất cả</Option>
+                  <Option value={0}>Bỏ qua</Option>
+                  <Option value={1}>Đang chờ</Option>
+                  <Option value={2}>Đã sử dụng</Option>
+                </Select>
               </Form.Item>
 
               <Form.Item
@@ -40,7 +71,10 @@ const FilterTable = () => {
           </Col>
         </Row>
       </Form>
-      <ServiceDetailTable />
+      <ServiceDetailTable
+        providerData={props.providerData}
+        providerLoading={props.providerLoading}
+      />
     </Card>
   );
 };

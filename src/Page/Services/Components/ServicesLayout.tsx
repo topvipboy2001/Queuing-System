@@ -8,6 +8,7 @@ import styles from "./ServicesLayout.module.scss";
 import ServicesTable from "./ServicesTable";
 import { ReactComponent as addSvg } from "../../../Assets/AddSquare.svg";
 import { useNavigate } from "react-router-dom";
+import DatePickerRange from "../../../Components/DatePickerRange";
 
 interface IServicesLayout {
   loading: boolean;
@@ -33,7 +34,9 @@ const ServicesLayout: FC<IServicesLayout> = (props) => {
           <Col>
             <Space size={24}>
               <Form.Item
-                label={<Typography.Text strong>Từ khóa</Typography.Text>}
+                label={
+                  <Typography.Text strong>Trạng thái hoạt động</Typography.Text>
+                }
                 className={styles.selectContianer}
               >
                 <Select
@@ -56,12 +59,7 @@ const ServicesLayout: FC<IServicesLayout> = (props) => {
               <Form.Item
                 label={<Typography.Text strong>Chọn thời gian</Typography.Text>}
               >
-                <Form.Item noStyle>
-                  <DatePicker size="large" />
-                </Form.Item>
-                <Form.Item noStyle>
-                  <DatePicker size="large" />
-                </Form.Item>
+                <DatePickerRange />
               </Form.Item>
             </Space>
           </Col>

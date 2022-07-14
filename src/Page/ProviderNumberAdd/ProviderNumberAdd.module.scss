@@ -1,0 +1,55 @@
+@import "../../Styles/globalColor";
+
+.modalContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.modalLabel {
+  color: $gray-400;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 48px;
+  margin-bottom: 24px;
+  margin-top: 48px;
+}
+
+.modalValue {
+  color: $orange-500;
+  font-weight: 800;
+  font-size: 56px;
+  line-height: 60px;
+}
+
+.subValue {
+  margin: 24px 0 44px 0;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 27px;
+}
+
+.modalTime {
+  background-color: $orange-400;
+  border-bottom-left-radius: 24px;
+  border-bottom-right-radius: 24px;
+  padding: 16px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.modalTimeWrapper {
+  display: flex;
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 33px;
+
+  span {
+    color: $white !important;
+  }
+}
+
+.timeLabel {
+  width: 150px;
+}

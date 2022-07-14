@@ -26,10 +26,11 @@ const LoginForm = () => {
   };
 
   useEffect(() => {
-    if (state.user) {
+    if (localStorage.getItem("userId")) {
       navigate("/");
     }
-  }, [state.user, navigate]);
+    // eslint-disable-next-line
+  }, [state.current, navigate]);
 
   return (
     <Form name="login" layout="vertical" onFinish={onFinish}>

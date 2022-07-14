@@ -8,10 +8,16 @@ import { ProviderType } from "../../../State/ActionTypes/ProvidersActionTypes";
 import styles from "./ProviderNumberLayout.module.scss";
 import ProviderNumberTable from "./ProviderNumberTable";
 import { ReactComponent as addSvg } from "../../../Assets/AddSquare.svg";
+import { ServiceType } from "../../../State/ActionTypes/ServicesActionTypes";
+import { SourceProviderType } from "../../../State/ActionTypes/SourceProvidesActionTypes";
 
 interface IProviderNumberLayout {
   loading: boolean;
   data: ProviderType[];
+  serviceLoading: boolean;
+  serviceData: ServiceType[];
+  sourceProvidersData: SourceProviderType[];
+  sourceProvidersLoading: boolean;
 }
 
 const { Option } = Select;
@@ -39,6 +45,7 @@ const ProviderNumberLayout: FC<IProviderNumberLayout> = (props) => {
                 <Select
                   size="large"
                   defaultValue={null}
+                  loading={props.serviceLoading}
                   suffixIcon={
                     <CaretDownOutlined
                       style={{ fontSize: "20px", color: "#FF7506" }}
@@ -46,8 +53,11 @@ const ProviderNumberLayout: FC<IProviderNumberLayout> = (props) => {
                   }
                 >
                   <Option value={null}>Tất cả</Option>
-                  <Option value={true}>Hoạt động</Option>
-                  <Option value={false}>Ngưng hoạt động </Option>
+                  {props.serviceData.map((value, index) => (
+                    <Option key={index} value={value.id}>
+                      {value.name}
+                    </Option>
+                  ))}
                 </Select>
               </Form.Item>
               <Form.Item
@@ -64,8 +74,9 @@ const ProviderNumberLayout: FC<IProviderNumberLayout> = (props) => {
                   }
                 >
                   <Option value={null}>Tất cả</Option>
-                  <Option value={true}>Hoạt động</Option>
-                  <Option value={false}>Ngưng hoạt động </Option>
+                  <Option value={0}>Bỏ qua</Option>
+                  <Option value={1}>Đang chờ</Option>
+                  <Option value={2}>Đã sử dụng</Option>
                 </Select>
               </Form.Item>
               <Form.Item
@@ -82,8 +93,11 @@ const ProviderNumberLayout: FC<IProviderNumberLayout> = (props) => {
                   }
                 >
                   <Option value={null}>Tất cả</Option>
-                  <Option value={true}>Hoạt động</Option>
-                  <Option value={false}>Ngưng hoạt động </Option>
+                  {props.sourceProvidersData.map((value, index) => (
+                    <Option key={index} value={value.id}>
+                      {value.name}
+                    </Option>
+                  ))}
                 </Select>
               </Form.Item>
               <Form.Item

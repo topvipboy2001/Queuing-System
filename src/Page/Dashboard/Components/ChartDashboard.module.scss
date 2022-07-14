@@ -52,4 +52,43 @@
 
 .areaChartCard {
   flex: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.chartLabel {
+  display: flex;
+  justify-content: space-between;
+}
+.chartTitleContainer {
+  .chartTitle {
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 30px;
+    color: $gray-500;
+    margin-bottom: 4px;
+  }
+
+  .chartSubTitle {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 21px;
+    color: $gray-200;
+  }
+}
+
+.label {
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 24px;
+  margin-right: 8px;
+  color: $gray-500;
+}
+
+.select {
+  width: 106px;
+}
+
+.chartContainer {
+  flex: auto;
 }

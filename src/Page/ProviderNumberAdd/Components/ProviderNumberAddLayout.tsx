@@ -2,6 +2,7 @@ import { CaretDownOutlined } from "@ant-design/icons";
 import { Button, Card, Form, Select, Space, Typography } from "antd";
 import React, { FC } from "react";
 import { Link } from "react-router-dom";
+import { ProviderAddType } from "../../../State/ActionTypes/ProvidersActionTypes";
 import { ServiceType } from "../../../State/ActionTypes/ServicesActionTypes";
 import styles from "./ProviderNumberAddLayout.module.scss";
 
@@ -9,7 +10,7 @@ interface IProviderNumberAddLayout {
   servicesData: ServiceType[];
   loading: boolean;
   servicesLoading: boolean;
-  onFinish: (values: any) => void;
+  onFinish: (values: ProviderAddType) => void;
 }
 
 const { Title, Text } = Typography;
@@ -76,6 +77,7 @@ const ProviderNumberAddLayout: FC<IProviderNumberAddLayout> = (props) => {
               htmlType="submit"
               size="large"
               type="primary"
+              loading={props.loading}
             >
               In số
             </Button>

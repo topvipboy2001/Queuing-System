@@ -1,0 +1,79 @@
+@import "../Styles/globalColor";
+
+.titleContainer {
+  background-color: $orange-400;
+  height: 48px;
+  width: 360px;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+
+  span {
+    color: $white;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 30px;
+  }
+}
+
+.popover {
+  padding: 0;
+}
+
+.wrapper {
+  height: 480px;
+  overflow-y: scroll;
+}
+
+.notificationButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 32px;
+  width: 32px;
+  min-width: 32px;
+  margin-right: 24px;
+  background-color: $orange-50;
+}
+
+.notificationButton:hover {
+  background-color: $orange-50;
+}
+
+.notificationButtonActive {
+  background-color: $orange-500 !important;
+  color: $white !important;
+}
+
+.notificationContainer {
+  height: 80px;
+  padding: 16px 24px 12px 24px;
+  display: block;
+  transition: all 0.1s ease;
+}
+
+.notificationContainer:hover {
+  background-color: $orange-50;
+}
+
+.notificationName {
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+
+  span {
+    color: $orange-600;
+  }
+}
+
+.notificationTime {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+
+  span {
+    color: $gray-400;
+  }
+}

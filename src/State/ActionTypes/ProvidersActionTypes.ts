@@ -9,6 +9,10 @@ export enum EProviders {
   GET_BY_ID_SUCCESS = "PROVIDERS_GET_BY_ID_SUCCESS",
   GET_BY_ID_ERROR = "PROVIDERS_GET_BY_ID_ERROR",
 
+  GET_BY_SERVICE_ID_ERROR = "PROVIDER_GET_BY_SERVICE_ID_ERROR",
+  GET_BY_SERVICE_ID_LOADING = "PROVIDER_GET_BY_SERVICE_ID_LOADING",
+  GET_BY_SERVICE_ID_SUCCESS = "PROVIDER_GET_BY_SERVICE_ID_SUCCESS",
+
   ADD_LOADING = "PROVIDERS_ADD_LOADING",
   ADD_SUCCESS = "PROVIDERS_ADD_SUCCESS",
   ADD_ERROR = "PROVIDERS_ADD_ERROR",
@@ -25,6 +29,10 @@ export type ProviderType = {
   services: any;
   sourceProvider: any;
   status: number;
+};
+
+export type ProviderAddType = {
+  service: string;
 };
 
 export interface ProvidersGetLoading {
@@ -69,6 +77,20 @@ export interface ProvidersAddSuccess {
   payload: ProviderType;
 }
 
+export interface ProvidersGetByServiceIdLoading {
+  type: typeof EProviders.GET_BY_SERVICE_ID_LOADING;
+}
+
+export interface ProvidersGetByServiceIdError {
+  type: typeof EProviders.GET_BY_SERVICE_ID_ERROR;
+  error: Error;
+}
+
+export interface ProvidersGetByServiceIdSuccess {
+  type: typeof EProviders.GET_BY_SERVICE_ID_SUCCESS;
+  subPayload: ProviderType[];
+}
+
 export type ProvidersDispatchType =
   | ProvidersGetLoading
   | ProvidersGetError
@@ -78,4 +100,7 @@ export type ProvidersDispatchType =
   | ProvidersGetByIdSuccess
   | ProvidersAddLoading
   | ProvidersAddError
-  | ProvidersAddSuccess;
+  | ProvidersAddSuccess
+  | ProvidersGetByServiceIdLoading
+  | ProvidersGetByServiceIdError
+  | ProvidersGetByServiceIdSuccess;
