@@ -1,4 +1,4 @@
-import { Col, Row, Typography } from "antd";
+import { Col, FormInstance, Row, Typography } from "antd";
 import React, { FC } from "react";
 import { useNavigate } from "react-router-dom";
 import ButtonSide from "../../../Components/ButtonSide";
@@ -8,12 +8,18 @@ import FilterTable from "./FilterTable";
 import styles from "./ServiceDetailLayout.module.scss";
 import { ReactComponent as backSvg } from "../../../Assets/BackSquare.svg";
 import { ReactComponent as editSvg } from "../../../Assets/Edit.svg";
-import { ProviderType } from "../../../State/ActionTypes/ProvidersActionTypes";
+import {
+  ProviderFilterGetServiceIDType,
+  ProviderType,
+} from "../../../State/ActionTypes/ProvidersActionTypes";
 
 interface IServiceDetailLayout {
   data: ServiceType;
   providerData: ProviderType[];
   providerLoading: boolean;
+  form: FormInstance;
+  onFinish: (values: ProviderFilterGetServiceIDType) => void;
+  id: string | undefined;
 }
 
 const { Title } = Typography;
@@ -36,6 +42,8 @@ const ServiceDetailLayout: FC<IServiceDetailLayout> = (props) => {
               <FilterTable
                 providerData={props.providerData}
                 providerLoading={props.providerLoading}
+                form={props.form}
+                onFinish={props.onFinish}
               />
             </Col>
           </Row>
@@ -47,7 +55,9 @@ const ServiceDetailLayout: FC<IServiceDetailLayout> = (props) => {
                 label: "Cập nhật danh sách",
                 icon: editSvg,
                 onClick: () => {
-                  navigate("/services/add");
+                  if (props.id) {
+                    navigate(`/services/update/${props.id}`);
+                  }
                 },
               },
               {

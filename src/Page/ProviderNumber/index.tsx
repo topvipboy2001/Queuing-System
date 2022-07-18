@@ -1,8 +1,13 @@
+import { useForm } from "antd/lib/form/Form";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { providerGetAction } from "../../State/Actions/ProvidersActions";
+import {
+  providerGetAction,
+  providerGetByFilterAction,
+} from "../../State/Actions/ProvidersActions";
 import { serviceGetAction } from "../../State/Actions/ServicesActions";
 import { sourceProviderGetAction } from "../../State/Actions/SourceProvidersActions";
+import { ProviderFilterType } from "../../State/ActionTypes/ProvidersActionTypes";
 import { RootStore } from "../../State/Store";
 import ProviderNumberLayout from "./Components/ProviderNumberLayout";
 
@@ -13,6 +18,7 @@ const ProviderNumber = () => {
   const sourceProviderState = useSelector(
     (state: RootStore) => state.sourceProvider
   );
+  const [form] = useForm();
 
   useEffect(() => {
     const fetchProvider = async () => {
@@ -28,6 +34,14 @@ const ProviderNumber = () => {
     fetchProvider();
   }, [dispatch]);
 
+  const onFinish = async (values: ProviderFilterType) => {
+    try {
+      await dispatch(providerGetByFilterAction(values));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <ProviderNumberLayout
       loading={state.loading}
@@ -36,6 +50,8 @@ const ProviderNumber = () => {
       serviceLoading={servicesState.loading}
       sourceProvidersLoading={sourceProviderState.loading}
       sourceProvidersData={sourceProviderState.current}
+      onFinish={onFinish}
+      form={form}
     />
   );
 };

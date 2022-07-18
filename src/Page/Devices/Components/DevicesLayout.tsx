@@ -1,5 +1,5 @@
 import { CaretDownOutlined } from "@ant-design/icons";
-import { Col, Form, Row, Select, Space, Typography } from "antd";
+import { Col, Form, FormInstance, Row, Select, Space, Typography } from "antd";
 import React, { FC } from "react";
 import ButtonSide from "../../../Components/ButtonSide";
 import SearchInput from "../../../Components/SearchInput";
@@ -7,11 +7,16 @@ import styles from "./DevicesLayout.module.scss";
 import DevicesTable from "./DevicesTable";
 import { ReactComponent as addSvg } from "../../../Assets/AddSquare.svg";
 import { useNavigate } from "react-router-dom";
-import { DeviceType } from "../../../State/ActionTypes/DevicesActionTypes";
+import {
+  DeviceFilterType,
+  DeviceType,
+} from "../../../State/ActionTypes/DevicesActionTypes";
 
 interface IDevicesLayout {
   loading: boolean;
   data: DeviceType[];
+  form: FormInstance<any>;
+  onFinish: (values: DeviceFilterType) => void;
 }
 
 const { Option } = Select;
@@ -28,7 +33,12 @@ const DevicesLayout: FC<IDevicesLayout> = (props) => {
           </Typography.Title>
         </Col>
       </Row>
-      <Form layout="vertical">
+      <Form
+        layout="vertical"
+        name="filter-devices"
+        form={props.form}
+        onFinish={props.onFinish}
+      >
         <Row justify="space-between" className={styles.inputContainer}>
           <Col>
             <Space size={24}>
@@ -37,10 +47,12 @@ const DevicesLayout: FC<IDevicesLayout> = (props) => {
                   <Typography.Text strong>Trạng thái hoạt động</Typography.Text>
                 }
                 className={styles.selectContianer}
+                name="isActive"
+                initialValue={null}
               >
                 <Select
+                  onChange={() => props.form.submit()}
                   size="large"
-                  defaultValue={null}
                   suffixIcon={
                     <CaretDownOutlined
                       style={{ fontSize: "20px", color: "#FF7506" }}
@@ -58,10 +70,12 @@ const DevicesLayout: FC<IDevicesLayout> = (props) => {
                   <Typography.Text strong>Trạng thái kết nối</Typography.Text>
                 }
                 className={styles.selectContianer}
+                name="isConnect"
+                initialValue={null}
               >
                 <Select
+                  onChange={() => props.form.submit()}
                   size="large"
-                  defaultValue={null}
                   suffixIcon={
                     <CaretDownOutlined
                       style={{ fontSize: "20px", color: "#FF7506" }}
@@ -78,8 +92,13 @@ const DevicesLayout: FC<IDevicesLayout> = (props) => {
           <Col flex="300px">
             <Form.Item
               label={<Typography.Text strong>Từ khóa</Typography.Text>}
+              name="search"
             >
-              <SearchInput size="large" placeholder="Nhập từ khóa" />
+              <SearchInput
+                size="large"
+                placeholder="Nhập từ khóa"
+                onSearch={(e) => props.form.submit()}
+              />
             </Form.Item>
           </Col>
         </Row>

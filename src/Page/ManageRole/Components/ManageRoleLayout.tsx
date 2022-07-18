@@ -1,7 +1,10 @@
-import { Col, Form, Row, Typography } from "antd";
+import { Col, Form, FormInstance, Row, Typography } from "antd";
 import React, { FC } from "react";
 import SearchInput from "../../../Components/SearchInput";
-import { RoleType } from "../../../State/ActionTypes/RolesActionType";
+import {
+  RoleFilterType,
+  RoleType,
+} from "../../../State/ActionTypes/RolesActionType";
 import styles from "./ManageRoleLayout.module.scss";
 import ManageRoleTable from "./ManageRoleTable";
 import { ReactComponent as addSvg } from "../../../Assets/AddSquare.svg";
@@ -11,6 +14,8 @@ import { useNavigate } from "react-router-dom";
 interface IManageRoleLayout {
   loading: boolean;
   data: RoleType[];
+  form: FormInstance;
+  onFinish: (values: RoleFilterType) => void;
 }
 
 const ManageRoleLayout: FC<IManageRoleLayout> = (props) => {
@@ -18,7 +23,12 @@ const ManageRoleLayout: FC<IManageRoleLayout> = (props) => {
 
   return (
     <div className={styles.section}>
-      <Form layout="vertical">
+      <Form
+        layout="vertical"
+        form={props.form}
+        name="filter-role"
+        onFinish={props.onFinish}
+      >
         <Row justify="space-between" className={styles.inputContainer}>
           <Col>
             <Typography.Title level={2} className={styles.title}>
@@ -29,8 +39,13 @@ const ManageRoleLayout: FC<IManageRoleLayout> = (props) => {
           <Col flex="300px">
             <Form.Item
               label={<Typography.Text strong>Từ khóa</Typography.Text>}
+              name="search"
             >
-              <SearchInput size="large" placeholder="Nhập từ khóa" />
+              <SearchInput
+                size="large"
+                placeholder="Nhập từ khóa"
+                onChange={() => props.form.submit()}
+              />
             </Form.Item>
           </Col>
         </Row>

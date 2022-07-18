@@ -24,21 +24,21 @@ export type DashBoardType = {
   };
 };
 
-export interface DashboardGetLoading {
+export interface IDashboardGetLoading {
   type: typeof EDashBoards.GET_LOADING;
 }
 
-export interface DashboardGetError {
+export interface IDashboardGetError {
   type: typeof EDashBoards.GET_ERROR;
   error: Error;
 }
 
-export interface DashboardGetSuccess {
+export interface IDashboardGetSuccess {
   type: typeof EDashBoards.GET_SUCCESS;
   payload: DashBoardType;
 }
 
 export type DashBoardDispatchType =
-  | DashboardGetLoading
-  | DashboardGetError
-  | DashboardGetSuccess;
+  | IDashboardGetLoading
+  | IDashboardGetError
+  | IDashboardGetSuccess;

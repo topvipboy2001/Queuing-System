@@ -70,7 +70,6 @@ const DeviceUpdate = () => {
   }, [state.current]);
 
   const onFinish = async (values: DeviceAddType) => {
-    console.log(values);
     try {
       await dispatch(deviceUpdateByIdAction(values));
       message.success("cập nhật thành công");

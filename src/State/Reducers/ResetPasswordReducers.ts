@@ -1,6 +1,6 @@
 import {
   EResetPassword,
-  IConfirmEmailDispatchTypes,
+  ConfirmEmailDispatchTypes,
 } from "../ActionTypes/ResetPasswordActionTypes";
 
 export interface defaultState {
@@ -18,7 +18,7 @@ const initialState: defaultState = {
 
 const ResetPasswordReducer = (
   state: defaultState = initialState,
-  action: IConfirmEmailDispatchTypes
+  action: ConfirmEmailDispatchTypes
 ): defaultState => {
   switch (action.type) {
     case EResetPassword.CONFIRM_EMAIL_SUCCESS:

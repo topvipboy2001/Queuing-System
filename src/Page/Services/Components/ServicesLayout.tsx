@@ -1,9 +1,12 @@
 import { CaretDownOutlined } from "@ant-design/icons";
-import { Col, DatePicker, Form, Row, Select, Space, Typography } from "antd";
+import { Col, Form, FormInstance, Row, Select, Space, Typography } from "antd";
 import React, { FC } from "react";
 import ButtonSide from "../../../Components/ButtonSide";
 import SearchInput from "../../../Components/SearchInput";
-import { ServiceType } from "../../../State/ActionTypes/ServicesActionTypes";
+import {
+  ServiceFilterType,
+  ServiceType,
+} from "../../../State/ActionTypes/ServicesActionTypes";
 import styles from "./ServicesLayout.module.scss";
 import ServicesTable from "./ServicesTable";
 import { ReactComponent as addSvg } from "../../../Assets/AddSquare.svg";
@@ -13,6 +16,8 @@ import DatePickerRange from "../../../Components/DatePickerRange";
 interface IServicesLayout {
   loading: boolean;
   data: ServiceType[];
+  form: FormInstance<any>;
+  onFinish: (values: ServiceFilterType) => void;
 }
 
 const { Option } = Select;
@@ -29,7 +34,12 @@ const ServicesLayout: FC<IServicesLayout> = (props) => {
           </Typography.Title>
         </Col>
       </Row>
-      <Form layout="vertical">
+      <Form
+        layout="vertical"
+        onFinish={props.onFinish}
+        name="filter-service"
+        form={props.form}
+      >
         <Row justify="space-between" className={styles.inputContainer}>
           <Col>
             <Space size={24}>
@@ -38,10 +48,12 @@ const ServicesLayout: FC<IServicesLayout> = (props) => {
                   <Typography.Text strong>Trạng thái hoạt động</Typography.Text>
                 }
                 className={styles.selectContianer}
+                initialValue={null}
+                name="isActive"
               >
                 <Select
+                  onChange={() => props.form.submit()}
                   size="large"
-                  defaultValue={null}
                   suffixIcon={
                     <CaretDownOutlined
                       style={{
@@ -58,6 +70,7 @@ const ServicesLayout: FC<IServicesLayout> = (props) => {
               </Form.Item>
               <Form.Item
                 label={<Typography.Text strong>Chọn thời gian</Typography.Text>}
+                name="dateRange"
               >
                 <DatePickerRange />
               </Form.Item>
@@ -66,8 +79,13 @@ const ServicesLayout: FC<IServicesLayout> = (props) => {
           <Col flex="300px">
             <Form.Item
               label={<Typography.Text strong>Từ khóa</Typography.Text>}
+              name="search"
             >
-              <SearchInput size="large" placeholder="Nhập từ khóa" />
+              <SearchInput
+                size="large"
+                placeholder="Nhập từ khóa"
+                onChange={() => props.form.submit()}
+              />
             </Form.Item>
           </Col>
         </Row>

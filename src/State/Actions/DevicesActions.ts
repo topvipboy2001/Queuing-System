@@ -12,12 +12,15 @@ import { Dispatch } from "react";
 import { db } from "../../Config/firebase";
 import {
   DeviceAddType,
+  DeviceFilterType,
   DevicesDispatchType,
   DeviceType,
   DeviceUpdateType,
   EDevices,
 } from "../ActionTypes/DevicesActionTypes";
 import { ServiceType } from "../ActionTypes/ServicesActionTypes";
+import Store from "../Store";
+import { historyAddAction } from "./HistoryActions";
 
 export const deviceAddAction =
   (values: DeviceAddType) =>
@@ -72,6 +75,8 @@ export const deviceAddAction =
 
       const deviceRef = doc(db, "devices", newDevice.id);
       const deviceSnap = await getDoc(deviceRef);
+
+      await historyAddAction("Thêm thiết bị với mã", "devices", deviceRef.id);
 
       dispatch({
         type: EDevices.ADD_SUCCESS,
@@ -128,6 +133,46 @@ export const deviceGetAction =
     } catch (error) {
       dispatch({
         type: EDevices.GET_ERROR,
+        error: error as Error,
+      });
+    }
+  };
+
+export const deviceGetByFilterAction =
+  (filter: DeviceFilterType) =>
+  async (dispatch: Dispatch<DevicesDispatchType>) => {
+    try {
+      dispatch({
+        type: EDevices.GET_BY_FILTER_LOADING,
+      });
+
+      const { devices } = Store.getState();
+      const filterDevices: DeviceType[] = devices.rootData.filter((value) => {
+        if (filter.isActive !== null && value.isActive !== filter.isActive) {
+          return false;
+        }
+
+        if (filter.isConnect !== null && value.isConnect !== filter.isConnect) {
+          return false;
+        }
+
+        if (filter.search !== null && filter.search !== undefined) {
+          return (
+            value.id.toLowerCase().includes(filter.search.toLowerCase()) ||
+            value.name.toLowerCase().includes(filter.search.toLowerCase())
+          );
+        }
+
+        return true;
+      });
+
+      dispatch({
+        type: EDevices.GET_BY_FILTER_SUCCESS,
+        payload: filterDevices,
+      });
+    } catch (error) {
+      dispatch({
+        type: EDevices.GET_BY_FILTER_ERROR,
         error: error as Error,
       });
     }
@@ -209,6 +254,12 @@ export const deviceUpdateByIdAction =
 
       const update = await getDoc(deviceRef);
       const updateData = { ...update.data(), id: update.id } as DeviceType;
+
+      await historyAddAction(
+        "Cập nhật thông tin thiết bị",
+        "devices",
+        deviceRef.id
+      );
 
       dispatch({
         type: EDevices.UPDATE_BY_ID_SUCCESS,

@@ -10,12 +10,12 @@ import { Dispatch } from "react";
 import { db } from "../../Config/firebase";
 import {
   EResetPassword,
-  IConfirmEmailDispatchTypes,
+  ConfirmEmailDispatchTypes,
 } from "../ActionTypes/ResetPasswordActionTypes";
 import { RootStore } from "../Store";
 
 export const confirmEmailActions =
-  (email: string) => async (dispatch: Dispatch<IConfirmEmailDispatchTypes>) => {
+  (email: string) => async (dispatch: Dispatch<ConfirmEmailDispatchTypes>) => {
     dispatch({
       type: EResetPassword.CONFIRM_EMAIL_LOADING,
       loading: true,
@@ -58,7 +58,7 @@ export const confirmEmailActions =
 export const ResetPasswordActions =
   (password: string, confirmPassword: string) =>
   async (
-    dispatch: Dispatch<IConfirmEmailDispatchTypes>,
+    dispatch: Dispatch<ConfirmEmailDispatchTypes>,
     getState: () => RootStore
   ) => {
     dispatch({
@@ -106,7 +106,7 @@ export const ResetPasswordActions =
   };
 
 export const clearResetPasswordCacheActions =
-  () => (dispatch: Dispatch<IConfirmEmailDispatchTypes>) => {
+  () => (dispatch: Dispatch<ConfirmEmailDispatchTypes>) => {
     dispatch({
       type: EResetPassword.CLEAR_CACHE,
     });

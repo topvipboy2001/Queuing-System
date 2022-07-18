@@ -49,7 +49,7 @@ export interface ILoginByIdError {
   error: Error;
 }
 
-export type ILoginDispatchTypes =
+export type LoginDispatchTypes =
   | ILoginSuccess
   | ILoginLoading
   | ILoginFail

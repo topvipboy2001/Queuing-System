@@ -4,10 +4,12 @@ import {
   Checkbox,
   Col,
   Form,
+  FormInstance,
   Input,
   Row,
   Typography,
 } from "antd";
+import { CheckboxChangeEvent } from "antd/lib/checkbox";
 import React, { FC } from "react";
 import { Link } from "react-router-dom";
 import { valuesSubmitRoleAddType } from "..";
@@ -16,6 +18,19 @@ import styles from "./ManageRoleAddLayout.module.scss";
 interface IManageRoleAddLayout {
   onFinish: (values: valuesSubmitRoleAddType) => void;
   loading: boolean;
+  form: FormInstance;
+
+  checkAllA: boolean;
+  onChangeAllA: (e: CheckboxChangeEvent) => void;
+  onChangeACell: () => void;
+
+  checkAllB: boolean;
+  onChangeAllB: (e: CheckboxChangeEvent) => void;
+  onChangeBCell: () => void;
+
+  checkAllC: boolean;
+  onChangeAllC: (e: CheckboxChangeEvent) => void;
+  onChangeCCell: () => void;
 }
 
 const { Text, Title } = Typography;
@@ -27,6 +42,7 @@ const ManageRoleAddLayout: FC<IManageRoleAddLayout> = (props) => {
       layout="vertical"
       name="role-add"
       className={styles.section}
+      form={props.form}
     >
       <Title level={2} className={styles.title}>
         Danh sách vai trò
@@ -74,12 +90,16 @@ const ManageRoleAddLayout: FC<IManageRoleAddLayout> = (props) => {
                       <Title level={4} className={styles.title}>
                         Nhóm chức nắng A
                       </Title>
-                      <Checkbox className={styles.checkbox}>
+                      <Checkbox
+                        className={styles.checkbox}
+                        checked={props.checkAllA}
+                        onChange={props.onChangeAllA}
+                      >
                         <Text className={styles.checkBoxLabel}>Tất cả</Text>
                       </Checkbox>
                       <br />
                       <Form.Item name="authorityA">
-                        <Checkbox.Group>
+                        <Checkbox.Group onChange={props.onChangeACell}>
                           <Checkbox value="ax" className={styles.checkbox}>
                             <Text className={styles.checkBoxLabel}>
                               Chức năng x
@@ -105,12 +125,16 @@ const ManageRoleAddLayout: FC<IManageRoleAddLayout> = (props) => {
                       <Title level={4} className={styles.title}>
                         Nhóm chức nắng B
                       </Title>
-                      <Checkbox className={styles.checkbox}>
+                      <Checkbox
+                        className={styles.checkbox}
+                        checked={props.checkAllB}
+                        onChange={props.onChangeAllB}
+                      >
                         <Text className={styles.checkBoxLabel}>Tất cả</Text>
                       </Checkbox>
                       <br />
                       <Form.Item name="authorityB">
-                        <Checkbox.Group>
+                        <Checkbox.Group onChange={props.onChangeBCell}>
                           <Checkbox value="bx" className={styles.checkbox}>
                             <Text className={styles.checkBoxLabel}>
                               Chức năng x
@@ -136,12 +160,16 @@ const ManageRoleAddLayout: FC<IManageRoleAddLayout> = (props) => {
                       <Title level={4} className={styles.title}>
                         Nhóm chức nắng C
                       </Title>
-                      <Checkbox className={styles.checkbox}>
+                      <Checkbox
+                        className={styles.checkbox}
+                        checked={props.checkAllC}
+                        onChange={props.onChangeAllC}
+                      >
                         <Text className={styles.checkBoxLabel}>Tất cả</Text>
                       </Checkbox>
                       <br />
                       <Form.Item name="authorityC">
-                        <Checkbox.Group>
+                        <Checkbox.Group onChange={props.onChangeCCell}>
                           <Checkbox value="cx" className={styles.checkbox}>
                             <Text className={styles.checkBoxLabel}>
                               Chức năng x

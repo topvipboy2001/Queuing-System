@@ -321,7 +321,12 @@ const Summary: FC<ISummary> = (props) => {
             </Space>
           </Card>
         </Link>
-        <Calendar value={props.date} onChange={props.setDate} />
+        <Calendar
+          value={props.date}
+          onChange={props.setDate}
+          colorPrimary="#FF7506"
+          colorPrimaryLight="#FFF2E7"
+        />
       </Space>
     </Card>
   );

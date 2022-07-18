@@ -9,21 +9,21 @@ export type DeviceTypeType = {
   name: string;
 };
 
-export interface DeviceTypeGetLoading {
+export interface IDeviceTypeGetLoading {
   type: typeof EDeviceType.GET_LOADING;
 }
 
-export interface DeviceTypeGetError {
+export interface IDeviceTypeGetError {
   type: typeof EDeviceType.GET_ERROR;
   error: Error;
 }
 
-export interface DeviceTypeGetSuccess {
+export interface IDeviceTypeGetSuccess {
   type: typeof EDeviceType.GET_SUCCESS;
   payload: DeviceTypeType[];
 }
 
 export type DeviceTypeDispatchType =
-  | DeviceTypeGetLoading
-  | DeviceTypeGetError
-  | DeviceTypeGetSuccess;
+  | IDeviceTypeGetLoading
+  | IDeviceTypeGetError
+  | IDeviceTypeGetSuccess;

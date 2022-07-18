@@ -61,7 +61,7 @@ export interface IResetPasswordClearCache {
   type: typeof EResetPassword.CLEAR_CACHE;
 }
 
-export type IConfirmEmailDispatchTypes =
+export type ConfirmEmailDispatchTypes =
   | IResetPasswordConfirmEmailSuccess
   | IResetPasswordConfirmEmailLoading
   | IResetPasswordConfirmEmailFail

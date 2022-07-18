@@ -6,15 +6,19 @@ import {
   setDoc,
   updateDoc,
 } from "firebase/firestore";
+import moment from "moment";
 import { Dispatch } from "react";
 import { db } from "../../Config/firebase";
 import {
   EServices,
   ServiceAddType,
   ServiceDispatchType,
+  ServiceFilterType,
   ServiceType,
   ServiceUpdateType,
 } from "../ActionTypes/ServicesActionTypes";
+import Store from "../Store";
+import { historyAddAction } from "./HistoryActions";
 
 export const serviceGetAction =
   () => async (dispatch: Dispatch<ServiceDispatchType>) => {
@@ -43,6 +47,44 @@ export const serviceGetAction =
     } catch (error) {
       dispatch({
         type: EServices.GET_ERROR,
+        error: error as Error,
+      });
+    }
+  };
+
+export const serviceGetByFilterAction =
+  (filter: ServiceFilterType) =>
+  async (dispatch: Dispatch<ServiceDispatchType>) => {
+    try {
+      dispatch({
+        type: EServices.GET_BY_FILTER_LOADING,
+      });
+
+      const { services } = Store.getState();
+      const filterServices: ServiceType[] = services.rootData.filter(
+        (value) => {
+          if (filter.isActive !== null && value.isActive !== filter.isActive) {
+            return false;
+          }
+
+          if (filter.search !== null && filter.search !== undefined) {
+            return (
+              value.id.toLowerCase().includes(filter.search.toLowerCase()) ||
+              value.name.toLowerCase().includes(filter.search.toLowerCase())
+            );
+          }
+
+          return true;
+        }
+      );
+
+      dispatch({
+        type: EServices.GET_BY_FILTER_SUCCESS,
+        payload: filterServices,
+      });
+    } catch (error) {
+      dispatch({
+        type: EServices.GET_BY_FILTER_ERROR,
         error: error as Error,
       });
     }
@@ -81,6 +123,8 @@ export const serviceAddAction =
 
       const serviceRef = doc(db, "services", newService.id);
       const serviceSnap = await getDoc(serviceRef);
+
+      await historyAddAction("Thêm dịch vụ với mã", "services", serviceRef.id);
 
       dispatch({
         type: EServices.ADD_SUCCESS,
@@ -140,6 +184,11 @@ export const serviceUpdateByIdAction =
 
       const update = await getDoc(serviceRef);
       const updateData = { ...update.data(), id: update.id } as ServiceType;
+      await historyAddAction(
+        "Cập nhật thông tin dịch vụ",
+        "services",
+        serviceRef.id
+      );
 
       dispatch({
         type: EServices.UPDATE_BY_ID_SUCCESS,

@@ -197,7 +197,7 @@ const ServiceUpdateLayout: FC<IServiceAddLayout> = (props) => {
             className={styles.button}
             htmlType="submit"
           >
-            Thêm dịch vụ
+            Cập nhật
           </Button>
         </Col>
       </Row>

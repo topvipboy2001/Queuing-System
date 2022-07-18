@@ -12,6 +12,10 @@ export enum EUser {
   GET_BY_ID_SUCCESS = "USER_GET_BY_ID_SUCCESS",
   GET_BY_ID_ERROR = "USER_GET_BY_ID_ERROR",
 
+  GET_BY_FILTER_LOADING = "USER_GET_BY_FILTER_LOADING",
+  GET_BY_FILTER_SUCCESS = "USER_GET_BY_FILTER_SUCCESS",
+  GET_BY_FILTER_ERROR = "USER_GET_BY_FILTER_ERROR",
+
   UPDATE_BY_ID_LOADING = "USER_UPDATE_BY_ID_LOADING",
   UPDATE_BY_ID_SUCCESS = "USER_UPDATE_BY_ID_SUCCESS",
   UPDATE_BY_ID_ERROR = "USER_UPDATE_BY_ID_ERROR",
@@ -26,6 +30,11 @@ export type UserType = {
   role: any;
   isActive: boolean;
   password: string;
+};
+
+export type UserFilterType = {
+  role: string;
+  search: string;
 };
 
 export type UserAddType = {
@@ -48,78 +57,95 @@ export type UserUpdateType = {
   isActive: boolean;
 };
 
-export interface UserAddLoading {
+export interface IUserAddLoading {
   type: typeof EUser.ADD_LOADING;
 }
 
-export interface UserAddError {
+export interface IUserAddError {
   type: typeof EUser.ADD_ERROR;
   error: Error;
 }
 
-export interface UserAddSuccess {
+export interface IUserAddSuccess {
   type: typeof EUser.ADD_SUCCESS;
   payload: UserType;
 }
 
-export interface UserAddFail {
+export interface IUserAddFail {
   type: typeof EUser.ADD_FAIL;
   message: string;
 }
 
-export interface UserGetLoading {
+export interface IUserGetLoading {
   type: typeof EUser.GET_LOADING;
 }
 
-export interface UserGetError {
+export interface IUserGetError {
   type: typeof EUser.GET_ERROR;
   error: Error;
 }
 
-export interface UserGetSuccess {
+export interface IUserGetSuccess {
   type: typeof EUser.GET_SUCCESS;
   payload: UserType[];
 }
 
-export interface UserGetByIdLoading {
+export interface IUserGetByIdLoading {
   type: typeof EUser.GET_BY_ID_LOADING;
 }
 
-export interface UserGetByIdError {
+export interface IUserGetByIdError {
   type: typeof EUser.GET_BY_ID_ERROR;
   error: Error;
 }
 
-export interface UserGetByIdSuccess {
+export interface IUserGetByIdSuccess {
   type: typeof EUser.GET_BY_ID_SUCCESS;
   payload: UserType;
 }
 
-export interface UserUpdateByIdLoading {
+export interface IUserUpdateByIdLoading {
   type: typeof EUser.UPDATE_BY_ID_LOADING;
 }
 
-export interface UserUpdateByIdError {
+export interface IUserUpdateByIdError {
   type: typeof EUser.UPDATE_BY_ID_ERROR;
   error: Error;
 }
 
-export interface UserUpdateByIdSuccess {
+export interface IUserUpdateByIdSuccess {
   type: typeof EUser.UPDATE_BY_ID_SUCCESS;
   payload: UserType;
 }
 
+export interface IUserGetByFilterLoading {
+  type: typeof EUser.GET_BY_FILTER_LOADING;
+}
+
+export interface IUserGetByFilterError {
+  type: typeof EUser.GET_BY_FILTER_ERROR;
+  error: Error;
+}
+
+export interface IUserGetByFilterSuccess {
+  type: typeof EUser.GET_BY_FILTER_SUCCESS;
+  payload: UserType[];
+}
+
 export type UserDispatchType =
-  | UserAddLoading
-  | UserAddError
-  | UserAddSuccess
-  | UserGetLoading
-  | UserGetError
-  | UserGetSuccess
-  | UserAddFail
-  | UserGetByIdLoading
-  | UserGetByIdError
-  | UserGetByIdSuccess
-  | UserUpdateByIdLoading
-  | UserUpdateByIdError
-  | UserUpdateByIdSuccess;
+  | IUserAddLoading
+  | IUserAddError
+  | IUserAddSuccess
+  | IUserGetLoading
+  | IUserGetError
+  | IUserGetSuccess
+  | IUserAddFail
+  | IUserGetByIdLoading
+  | IUserGetByIdError
+  | IUserGetByIdSuccess
+  | IUserUpdateByIdLoading
+  | IUserUpdateByIdError
+  | IUserUpdateByIdSuccess
+  | IUserGetByFilterLoading
+  | IUserGetByFilterError
+  | IUserGetByFilterSuccess;

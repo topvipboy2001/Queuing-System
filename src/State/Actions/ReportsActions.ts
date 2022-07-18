@@ -1,14 +1,17 @@
 import { collection, getDoc, getDocs } from "firebase/firestore";
+import moment from "moment";
 import { Dispatch } from "react";
 import { db } from "../../Config/firebase";
 import {
   EReports,
-  IReportDispatchType,
+  ReportDispatchType,
+  ReportFilterType,
   ReportsType,
 } from "../ActionTypes/ReportsActionTypes";
+import Store from "../Store";
 
 export const reportsGetAction =
-  () => async (dispatch: Dispatch<IReportDispatchType>) => {
+  () => async (dispatch: Dispatch<ReportDispatchType>) => {
     try {
       dispatch({
         type: EReports.GET_LOADING,
@@ -46,6 +49,52 @@ export const reportsGetAction =
     } catch (error) {
       dispatch({
         type: EReports.GET_ERROR,
+        error: error as Error,
+      });
+    }
+  };
+
+export const reportsGetByFilterAction =
+  (filter: ReportFilterType) =>
+  async (dispatch: Dispatch<ReportDispatchType>) => {
+    if (filter.dateRange === null) return;
+
+    try {
+      dispatch({
+        type: EReports.GET_WITH_FILTER_LOADING,
+      });
+
+      const { reports } = Store.getState();
+
+      let newReports: ReportsType[] = reports.rootData.filter((value) => {
+        const dateProvider = moment(value.dateProvider.toDate());
+        if (filter.dateRange) {
+          if (
+            filter.dateRange[0] &&
+            !moment(filter.dateRange[0]).isSameOrBefore(dateProvider, "days")
+          ) {
+            return false;
+          }
+
+          if (
+            filter.dateRange[1] &&
+            !moment(filter.dateRange[1]).isSameOrAfter(dateProvider, "days")
+          ) {
+            return false;
+          }
+        }
+        return true;
+      });
+
+      newReports.reverse();
+
+      dispatch({
+        type: EReports.GET_WITH_FILTER_SUCCESS,
+        payload: newReports.sort((a, b) => a.ordinalNumber - b.ordinalNumber),
+      });
+    } catch (error) {
+      dispatch({
+        type: EReports.GET_WITH_FILTER_ERROR,
         error: error as Error,
       });
     }

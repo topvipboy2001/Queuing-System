@@ -1,3 +1,5 @@
+import { Moment } from "moment";
+
 export enum EServices {
   GET_LOADING = "SERVICES_GET_LOADING",
   GET_SUCCESS = "SERVICES_GET_SUCCESS",
@@ -6,6 +8,10 @@ export enum EServices {
   GET_BY_ID_LOADING = "SERVICES_GET_BY_ID_LOADING",
   GET_BY_ID_SUCCESS = "SERVICES_GET_BY_ID_SUCCESS",
   GET_BY_ID_ERROR = "SERVICES_GET_BY_ID_ERROR",
+
+  GET_BY_FILTER_LOADING = "SERVICES_GET_BY_FILTER_LOADING",
+  GET_BY_FILTER_SUCCESS = "SERVICES_GET_BY_FILTER_SUCCESS",
+  GET_BY_FILTER_ERROR = "SERVICES_GET_BY_FILTER_ERROR",
 
   UPDATE_BY_ID_LOADING = "SERVICES_UPDATE_BY_ID_LOADING",
   UPDATE_BY_ID_SUCCESS = "SERVICES_UPDATE_BY_ID_SUCCESS",
@@ -28,6 +34,12 @@ export type ServiceType = {
   isActive: boolean;
 };
 
+export type ServiceFilterType = {
+  isActive: boolean | null;
+  dateRange: [Moment, Moment];
+  search: string;
+};
+
 export type ServiceAddType = {
   id: string;
   name: string;
@@ -48,32 +60,46 @@ export type ServiceUpdateType = {
   increase?: { from?: number; to?: number };
 };
 
-export interface ServicesGetLoading {
+export interface IServicesGetLoading {
   type: typeof EServices.GET_LOADING;
 }
 
-export interface ServicesGetError {
+export interface IServicesGetError {
   type: typeof EServices.GET_ERROR;
   error: Error;
 }
 
-export interface ServicesGetSuccess {
+export interface IServicesGetSuccess {
   type: typeof EServices.GET_SUCCESS;
   payload: ServiceType[];
 }
 
-export interface ServiceGetByIdLoading {
+export interface IServiceGetByIdLoading {
   type: typeof EServices.GET_BY_ID_LOADING;
 }
 
-export interface ServiceGetByIdError {
+export interface IServiceGetByIdError {
   type: typeof EServices.GET_BY_ID_ERROR;
   error: Error;
 }
 
-export interface ServiceGetByIdSuccess {
+export interface IServiceGetByIdSuccess {
   type: typeof EServices.GET_BY_ID_SUCCESS;
   payload: ServiceType;
+}
+
+export interface IServiceGetByFilterLoading {
+  type: typeof EServices.GET_BY_FILTER_LOADING;
+}
+
+export interface IServiceGetByFilterError {
+  type: typeof EServices.GET_BY_FILTER_ERROR;
+  error: Error;
+}
+
+export interface IServiceGetByFilterSuccess {
+  type: typeof EServices.GET_BY_FILTER_SUCCESS;
+  payload: ServiceType[];
 }
 
 export interface ServiceUpdateByIdLoading {
@@ -105,15 +131,18 @@ export interface ServiceAddSuccess {
 }
 
 export type ServiceDispatchType =
-  | ServicesGetLoading
-  | ServicesGetError
-  | ServicesGetSuccess
+  | IServicesGetLoading
+  | IServicesGetError
+  | IServicesGetSuccess
   | ServiceAddLoading
   | ServiceAddError
   | ServiceAddSuccess
-  | ServiceGetByIdLoading
-  | ServiceGetByIdError
-  | ServiceGetByIdSuccess
+  | IServiceGetByIdLoading
+  | IServiceGetByIdError
+  | IServiceGetByIdSuccess
   | ServiceUpdateByIdLoading
   | ServiceUpdateByIdError
-  | ServiceUpdateByIdSuccess;
+  | ServiceUpdateByIdSuccess
+  | IServiceGetByFilterLoading
+  | IServiceGetByFilterError
+  | IServiceGetByFilterSuccess;

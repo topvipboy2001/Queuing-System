@@ -1,6 +1,6 @@
 import { Dispatch } from "react";
 import { db } from "../../Config/firebase";
-import { ELogin, ILoginDispatchTypes } from "../ActionTypes/LoginActionTypes";
+import { ELogin, LoginDispatchTypes } from "../ActionTypes/LoginActionTypes";
 import {
   collection,
   doc,
@@ -14,7 +14,7 @@ import { RoleType } from "../ActionTypes/RolesActionType";
 
 export const LoginActions =
   (username: string, password: string) =>
-  async (dispatch: Dispatch<ILoginDispatchTypes>) => {
+  async (dispatch: Dispatch<LoginDispatchTypes>) => {
     dispatch({
       type: ELogin.LOADING,
     });
@@ -61,7 +61,7 @@ export const LoginActions =
   };
 
 export const LoginByIdAction =
-  (id: string) => async (dispatch: Dispatch<ILoginDispatchTypes>) => {
+  (id: string) => async (dispatch: Dispatch<LoginDispatchTypes>) => {
     try {
       dispatch({ type: ELogin.LOGIN_BY_ID_LOADING });
       const userRef = doc(db, "users", id);
@@ -83,7 +83,7 @@ export const LoginByIdAction =
   };
 
 export const LogOutAction =
-  () => async (dispatch: Dispatch<ILoginDispatchTypes>) => {
+  () => async (dispatch: Dispatch<LoginDispatchTypes>) => {
     dispatch({
       type: ELogin.LOGOUT,
     });

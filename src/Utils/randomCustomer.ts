@@ -6,6 +6,11 @@ type customerInfoType = {
 
 const customerInfo: customerInfoType[] = [
   {
+    name: "Phạm Đình Phương Nam",
+    phoneNumber: "0123456781",
+    email: "phuongnam@gmail.com",
+  },
+  {
     name: "Nguyễn Văn Hiền",
     phoneNumber: "0123456789",
     email: "vanhienit@gmail.com",
@@ -21,10 +26,15 @@ const customerInfo: customerInfoType[] = [
     email: "thanhtrung@gmail.com",
   },
   {
-    name: "Phạm Đình Phương Nam",
-    phoneNumber: "0123456781",
-    email: "phuongnam@gmail.com",
+    name: "Nguyễn Thành Long",
+    phoneNumber: "0123458964",
+    email: "longgnol123@gmail.com",
   },
+  {
+    name: "Nguyễn Thanh Tùng",
+    phoneNumber: "0123456781",
+    email: "tungdeptrai@gmail.com",
+  }
 ];
 
 export const randomCustomer = () => {

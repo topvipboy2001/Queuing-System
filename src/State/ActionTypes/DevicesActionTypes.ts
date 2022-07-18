@@ -7,6 +7,10 @@ export enum EDevices {
   GET_BY_ID_SUCCESS = "DEVICES_GET_BY_ID_SUCCESS",
   GET_BY_ID_ERROR = "DEVICES_GET_BY_ID_ERROR",
 
+  GET_BY_FILTER_LOADING = "DEVICES_GET_BY_FILTER_LOADING",
+  GET_BY_FILTER_SUCCESS = "DEVICES_GET_BY_FILTER_SUCCESS",
+  GET_BY_FILTER_ERROR = "DEVICES_GET_BY_FILTER_ERROR",
+
   UPDATE_BY_ID_LOADING = "DEVICES_UPDATE_BY_ID_LOADING",
   UPDATE_BY_ID_SUCCESS = "DEVICES_UPDATE_BY_ID_SUCCESS",
   UPDATE_BY_ID_ERROR = "DEVICES_UPDATE_BY_ID_ERROR",
@@ -29,6 +33,12 @@ export type DeviceType = {
   isConnect: boolean;
 };
 
+export type DeviceFilterType = {
+  isActive: boolean | null;
+  isConnect: boolean | null;
+  search: string;
+};
+
 export type DeviceAddType = {
   id: string;
   name: string;
@@ -49,72 +59,89 @@ export type DeviceUpdateType = {
   services: string[];
 };
 
-export interface DevicesGetLoading {
+export interface IDevicesGetLoading {
   type: typeof EDevices.GET_LOADING;
 }
 
-export interface DevicesGetError {
+export interface IDevicesGetError {
   type: typeof EDevices.GET_ERROR;
   error: Error;
 }
 
-export interface DevicesGetSuccess {
+export interface IDevicesGetSuccess {
   type: typeof EDevices.GET_SUCCESS;
   payload: DeviceType[];
 }
 
-export interface DeviceGetByIdLoading {
+export interface IDeviceGetByIdLoading {
   type: typeof EDevices.GET_BY_ID_LOADING;
 }
 
-export interface DeviceGetByIdError {
+export interface IDeviceGetByIdError {
   type: typeof EDevices.GET_BY_ID_ERROR;
   error: Error;
 }
 
-export interface DeviceGetByIdSuccess {
+export interface IDeviceGetByIdSuccess {
   type: typeof EDevices.GET_BY_ID_SUCCESS;
   payload: DeviceType;
 }
 
-export interface DeviceUpdateByIdLoading {
+export interface IDeviceGetByFilterLoading {
+  type: typeof EDevices.GET_BY_FILTER_LOADING;
+}
+
+export interface IDeviceGetByFilterError {
+  type: typeof EDevices.GET_BY_FILTER_ERROR;
+  error: Error;
+}
+
+export interface IDeviceGetByFilterSuccess {
+  type: typeof EDevices.GET_BY_FILTER_SUCCESS;
+  payload: DeviceType[];
+}
+
+export interface IDeviceUpdateByIdLoading {
   type: typeof EDevices.UPDATE_BY_ID_LOADING;
 }
 
-export interface DeviceUpdateByIdError {
+export interface IDeviceUpdateByIdError {
   type: typeof EDevices.UPDATE_BY_ID_ERROR;
   error: Error;
 }
 
-export interface DeviceUpdateByIdSuccess {
+export interface IDeviceUpdateByIdSuccess {
   type: typeof EDevices.UPDATE_BY_ID_SUCCESS;
   payload: DeviceType;
 }
 
-export interface DeviceAddLoading {
+export interface IDeviceAddLoading {
   type: typeof EDevices.ADD_LOADING;
 }
 
-export interface DeviceAddError {
+export interface IDeviceAddError {
   type: typeof EDevices.ADD_ERROR;
   error: Error;
 }
 
-export interface DeviceAddSuccess {
+export interface IDeviceAddSuccess {
   type: typeof EDevices.ADD_SUCCESS;
   payload: DeviceType;
 }
 
 export type DevicesDispatchType =
-  | DevicesGetLoading
-  | DevicesGetError
-  | DevicesGetSuccess
-  | DeviceGetByIdLoading
-  | DeviceGetByIdError
-  | DeviceGetByIdSuccess
-  | DeviceUpdateByIdLoading
-  | DeviceUpdateByIdError
-  | DeviceUpdateByIdSuccess
-  | DeviceAddLoading
-  | DeviceAddError
-  | DeviceAddSuccess;
+  | IDevicesGetLoading
+  | IDevicesGetError
+  | IDevicesGetSuccess
+  | IDeviceGetByIdLoading
+  | IDeviceGetByIdError
+  | IDeviceGetByIdSuccess
+  | IDeviceUpdateByIdLoading
+  | IDeviceUpdateByIdError
+  | IDeviceUpdateByIdSuccess
+  | IDeviceAddLoading
+  | IDeviceAddError
+  | IDeviceAddSuccess
+  | IDeviceGetByFilterLoading
+  | IDeviceGetByFilterError
+  | IDeviceGetByFilterSuccess;

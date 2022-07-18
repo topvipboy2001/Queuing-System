@@ -1,68 +1,66 @@
 import {
-  EReports,
-  ReportDispatchType,
-  ReportsType,
-} from "../ActionTypes/ReportsActionTypes";
+  ERole,
+  RoleDispatchType,
+  RoleType,
+} from "../ActionTypes/RolesActionType";
 
 export interface defaultState {
   loading: boolean;
   error?: Error;
-  current: ReportsType[];
-  rootData: ReportsType[];
+  current: RoleType;
 }
 
 const initialState: defaultState = {
   loading: false,
-  current: [],
-  rootData: [],
+  current: {
+    id: "unknown",
+    name: "unknown",
+    description: "unknown",
+    authority: [],
+    amountOfUser: 0,
+  },
 };
 
-const ReportsReducers = (
+const RoleReducer = (
   state: defaultState = initialState,
-  action: ReportDispatchType
+  action: RoleDispatchType
 ) => {
   switch (action.type) {
-    case EReports.GET_LOADING:
+    case ERole.GET_BY_ID_LOADING:
       return {
         loading: true,
         current: state.current,
-        rootData: state.current,
       };
 
-    case EReports.GET_SUCCESS:
+    case ERole.GET_BY_ID_SUCCESS:
       return {
         loading: false,
         current: action.payload,
-        rootData: action.payload,
       };
 
-    case EReports.GET_ERROR:
+    case ERole.GET_BY_ID_ERROR:
       return {
         loading: false,
         current: state.current,
-        rootData: state.rootData,
         error: action.error,
       };
 
-    case EReports.GET_WITH_FILTER_LOADING:
+    case ERole.UPDATE_BY_ID_LOADING:
       return {
         loading: true,
         current: state.current,
-        rootData: state.rootData,
       };
 
-    case EReports.GET_WITH_FILTER_SUCCESS:
+    case ERole.UPDATE_BY_ID_SUCCESS:
       return {
         loading: false,
         current: action.payload,
-        rootData: state.rootData,
       };
 
-    case EReports.GET_WITH_FILTER_ERROR:
+    case ERole.UPDATE_BY_ID_ERROR:
       return {
         loading: false,
         current: state.current,
-        rootData: state.rootData,
         error: action.error,
       };
 
@@ -70,9 +68,8 @@ const ReportsReducers = (
       return {
         loading: false,
         current: state.current,
-        rootData: state.rootData,
       };
   }
 };
 
-export default ReportsReducers;
+export default RoleReducer;

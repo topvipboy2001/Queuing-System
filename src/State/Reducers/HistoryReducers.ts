@@ -1,14 +1,14 @@
 import {
-  EReports,
-  ReportDispatchType,
-  ReportsType,
-} from "../ActionTypes/ReportsActionTypes";
+  EHistory,
+  HistoryDispatchType,
+  HistoryType,
+} from "../ActionTypes/HistoryActionTypes";
 
 export interface defaultState {
   loading: boolean;
   error?: Error;
-  current: ReportsType[];
-  rootData: ReportsType[];
+  current: HistoryType[];
+  rootData: HistoryType[];
 }
 
 const initialState: defaultState = {
@@ -17,53 +17,53 @@ const initialState: defaultState = {
   rootData: [],
 };
 
-const ReportsReducers = (
+const HistoryReducer = (
   state: defaultState = initialState,
-  action: ReportDispatchType
+  action: HistoryDispatchType
 ) => {
   switch (action.type) {
-    case EReports.GET_LOADING:
+    case EHistory.GET_LOADING:
       return {
         loading: true,
         current: state.current,
-        rootData: state.current,
+        rootData: state.rootData,
       };
 
-    case EReports.GET_SUCCESS:
+    case EHistory.GET_ERROR:
+      return {
+        loading: false,
+        current: state.current,
+        rootData: state.rootData,
+        error: action.error,
+      };
+
+    case EHistory.GET_SUCCESS:
       return {
         loading: false,
         current: action.payload,
         rootData: action.payload,
       };
 
-    case EReports.GET_ERROR:
-      return {
-        loading: false,
-        current: state.current,
-        rootData: state.rootData,
-        error: action.error,
-      };
-
-    case EReports.GET_WITH_FILTER_LOADING:
+    case EHistory.GET_WITH_FILTER_LOADING:
       return {
         loading: true,
         current: state.current,
         rootData: state.rootData,
       };
 
-    case EReports.GET_WITH_FILTER_SUCCESS:
-      return {
-        loading: false,
-        current: action.payload,
-        rootData: state.rootData,
-      };
-
-    case EReports.GET_WITH_FILTER_ERROR:
+    case EHistory.GET_WITH_FILTER_ERROR:
       return {
         loading: false,
         current: state.current,
         rootData: state.rootData,
         error: action.error,
+      };
+
+    case EHistory.GET_WITH_FILTER_SUCCESS:
+      return {
+        loading: false,
+        current: action.payload,
+        rootData: state.rootData,
       };
 
     default:
@@ -75,4 +75,4 @@ const ReportsReducers = (
   }
 };
 
-export default ReportsReducers;
+export default HistoryReducer;

@@ -1,4 +1,4 @@
-import { ELogin, ILoginDispatchTypes } from "../ActionTypes/LoginActionTypes";
+import { ELogin, LoginDispatchTypes } from "../ActionTypes/LoginActionTypes";
 
 export interface defaultState {
   loading: boolean;
@@ -26,7 +26,7 @@ const initialState: defaultState = {
 
 const LoginReducer = (
   state: defaultState = initialState,
-  action: ILoginDispatchTypes
+  action: LoginDispatchTypes
 ): defaultState => {
   switch (action.type) {
     case ELogin.SUCCESS:

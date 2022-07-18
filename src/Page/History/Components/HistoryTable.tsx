@@ -1,78 +1,58 @@
 import { Table } from "antd";
 import { ColumnsType } from "antd/lib/table";
-import React from "react";
+import moment from "moment";
+import React, { FC } from "react";
+import { HistoryType } from "../../../State/ActionTypes/HistoryActionTypes";
 
-interface DataType {
-  key: string;
-  username: string;
-  time: Date;
-  ip: string;
-  actionImplemented: string;
+interface IHistoryTable {
+  loading: boolean;
+  data: HistoryType[];
 }
 
-const columns: ColumnsType<DataType> = [
+const columns: ColumnsType<HistoryType> = [
   {
     title: "Tên đăng nhập",
-    key: "username",
-    dataIndex: "username",
+    key: "user",
+    dataIndex: "user",
+    render(value, record, index) {
+      return value.username;
+    },
   },
 
   {
     title: "Thời gian tác động",
-    key: "time",
-    dataIndex: "time",
+    key: "timeInteract",
+    dataIndex: "timeInteract",
     render(value, record, index) {
-      return value.toString();
+      return moment(value.toDate()).format("DD/MM/YYYY HH:mm:ss");
     },
   },
 
   {
     title: "IP thực hiện",
-    key: "ip",
-    dataIndex: "ip",
+    key: "IPAddress",
+    dataIndex: "IPAddress",
   },
 
   {
     title: "Thao tác thực hiện",
-    key: "active",
+    key: "actionImplemented",
     dataIndex: "actionImplemented",
+    render(value, record, index) {
+      return record.content + " " + record.documentInteracted.id;
+    },
   },
 ];
 
-const data: DataType[] = [
-  {
-    key: "1",
-    username: "topvipboy2001",
-    time: new Date(),
-    ip: "111.111.111.111",
-    actionImplemented: "Cập nhật thông tin",
-  },
-
-  {
-    key: "2",
-    username: "topvipboy2001",
-    time: new Date(),
-    ip: "111.111.111.111",
-    actionImplemented: "Cập nhật thông tin",
-  },
-
-  {
-    key: "3",
-    username: "topvipboy2001",
-    time: new Date(),
-    ip: "111.111.111.111",
-    actionImplemented: "Cập nhật thông tin",
-  },
-];
-
-const HistoryTable = () => {
+const HistoryTable: FC<IHistoryTable> = (props) => {
   return (
     <Table
       columns={columns}
-      dataSource={data}
+      dataSource={props.data.map((value, index) => ({ ...value, key: index }))}
       bordered
       size="middle"
       pagination={{ position: ["bottomRight"] }}
+      loading={props.loading}
     />
   );
 };
