@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 import { DashBoardType } from "../../../State/ActionTypes/DashBoardType";
 import { formatNumber } from "../../../Utils/formatNumber";
 import { toPercent } from "../../../Utils/toPercent";
+import { customLocale } from "../../../Components/DatePickerRange/CustomLocale";
 
 interface ISummary {
   date: DayValue;
@@ -326,6 +327,8 @@ const Summary: FC<ISummary> = (props) => {
           onChange={props.setDate}
           colorPrimary="#FF7506"
           colorPrimaryLight="#FFF2E7"
+          locale={customLocale}
+          calendarClassName={styles.calendar}
         />
       </Space>
     </Card>

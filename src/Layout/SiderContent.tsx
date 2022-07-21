@@ -101,10 +101,19 @@ const items: MenuProps["items"] = [
   },
 ];
 
+const authItems: MenuProps["items"] = [
+  {
+    label: <>Cấp số</>,
+    key: "/provider",
+    icon: <Icon component={layerSvg} style={{ fontSize: 20 }} />,
+  },
+];
+
 const SiderContent = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const auth = localStorage.getItem("userId");
 
   const handleLogout = async () => {
     dispatch(LogOutAction());
@@ -134,17 +143,18 @@ const SiderContent = () => {
             />
           </Link>
         </div>
-        <Menu selectedKeys={selectedKey} items={items} />
+        <Menu selectedKeys={selectedKey} items={auth ? items : authItems} />
       </div>
-
-      <Button
-        className={styles.logoutBtn}
-        icon={<Icon component={logoutSvg} style={{ marginRight: 12 }} />}
-        type="link"
-        onClick={handleLogout}
-      >
-        Đăng xuất
-      </Button>
+      {auth ? (
+        <Button
+          className={styles.logoutBtn}
+          icon={<Icon component={logoutSvg} style={{ marginRight: 12 }} />}
+          type="link"
+          onClick={handleLogout}
+        >
+          Đăng xuất
+        </Button>
+      ) : null}
     </div>
   );
 };

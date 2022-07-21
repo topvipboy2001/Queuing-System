@@ -12,9 +12,9 @@ import {
 import moment from "moment";
 import { Dispatch } from "react";
 import { db } from "../../Config/firebase";
-import { randomCustomer } from "../../Utils/randomCustomer";
 import {
   EProviders,
+  ProviderAddType,
   ProviderFilterGetServiceIDType,
   ProviderFilterType,
   ProvidersDispatchType,
@@ -320,14 +320,14 @@ export const providerGetByIdAction =
   };
 
 export const providerAddAction =
-  (service: string) => async (dispatch: Dispatch<ProvidersDispatchType>) => {
+  (values: ProviderAddType) =>
+  async (dispatch: Dispatch<ProvidersDispatchType>) => {
     try {
       dispatch({
         type: EProviders.ADD_LOADING,
       });
       const today = moment().toDate();
       const nextFiveDay = moment(today).add(5, "days").toDate();
-      const ranCustomer = randomCustomer();
       let largestNumber = 0;
 
       const providerRef = collection(db, "providers");
@@ -345,13 +345,13 @@ export const providerAddAction =
 
       const newProvider = doc(providerRef);
       await setDoc(newProvider, {
-        customerName: ranCustomer.name,
+        customerName: values.customerName,
         dateProvider: today,
         dateValid: nextFiveDay,
-        email: ranCustomer.email,
-        phoneNumber: ranCustomer.phoneNumber,
+        email: values.email,
+        phoneNumber: values.phoneNumber,
         ordinalNumber: largestNumber + 1,
-        services: doc(db, `/services/${service}`),
+        services: doc(db, `/services/${values.service}`),
         status: 1,
         sourceProvider: doc(db, `/sourceProvider/piNFEgGpGaiJ4Ki5T6GQ`),
       });

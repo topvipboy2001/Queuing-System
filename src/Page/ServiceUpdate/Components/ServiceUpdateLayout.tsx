@@ -62,7 +62,11 @@ const ServiceUpdateLayout: FC<IServiceAddLayout> = (props) => {
           <Col span={12}>
             <Form.Item
               name="id"
-              label={<Text strong>Mã dịch vụ:</Text>}
+              label={
+                <Text strong>
+                  Mã dịch vụ: <span style={{ color: "#FF4747" }}>*</span>
+                </Text>
+              }
               required={false}
               rules={[{ required: true, message: "Vui lòng nhập mã dịch vụ" }]}
             >
@@ -71,7 +75,11 @@ const ServiceUpdateLayout: FC<IServiceAddLayout> = (props) => {
 
             <Form.Item
               name="name"
-              label={<Text strong>Tên dịch vụ:</Text>}
+              label={
+                <Text strong>
+                  Tên dịch vụ: <span style={{ color: "#FF4747" }}>*</span>
+                </Text>
+              }
               required={false}
               rules={[{ required: true, message: "Vui lòng nhập mã dịch vụ" }]}
             >
@@ -79,7 +87,7 @@ const ServiceUpdateLayout: FC<IServiceAddLayout> = (props) => {
             </Form.Item>
           </Col>
           <Col span={12}>
-            <Form.Item name="description" label={<Text strong>Mô tả:</Text>}>
+            <Form.Item name="description" label={<Text strong>Mô tả: </Text>}>
               <Input.TextArea
                 size="large"
                 placeholder="Mô tả dịch vụ"
@@ -171,6 +179,13 @@ const ServiceUpdateLayout: FC<IServiceAddLayout> = (props) => {
                 <Text className={styles.checkBoxLabel}>Reset mỗi ngày</Text>
               </Checkbox>
             </Form.Item>
+
+            <div>
+              <Typography.Text type="secondary">
+                <span style={{ color: "#FF4747" }}>*</span> là trường thông tin
+                bắt buộc
+              </Typography.Text>
+            </div>
           </Col>
         </Row>
       </Card>

@@ -44,7 +44,11 @@ const ManageAccountAddLayout: FC<IManageAccountLayout> = (props) => {
                 <Form.Item
                   name="name"
                   required={false}
-                  label={<Typography.Text strong>Họ tên:</Typography.Text>}
+                  label={
+                    <Typography.Text strong>
+                      Họ tên: <span style={{ color: "#FF4747" }}>*</span>
+                    </Typography.Text>
+                  }
                   rules={[{ required: true, message: "Vui lòng nhập họ tên" }]}
                 >
                   <Input size="large" placeholder="Nhập họ tên" />
@@ -55,7 +59,9 @@ const ManageAccountAddLayout: FC<IManageAccountLayout> = (props) => {
                   name="username"
                   required={false}
                   label={
-                    <Typography.Text strong>Tên đăng nhập:</Typography.Text>
+                    <Typography.Text strong>
+                      Tên đăng nhập: <span style={{ color: "#FF4747" }}>*</span>
+                    </Typography.Text>
                   }
                   rules={[
                     { required: true, message: "Vui lòng nhập tên đăng nhập" },
@@ -70,7 +76,9 @@ const ManageAccountAddLayout: FC<IManageAccountLayout> = (props) => {
                   name="phoneNumber"
                   required={false}
                   label={
-                    <Typography.Text strong>Số điện thoại:</Typography.Text>
+                    <Typography.Text strong>
+                      Số điện thoại: <span style={{ color: "#FF4747" }}>*</span>
+                    </Typography.Text>
                   }
                   rules={[
                     { required: true, message: "Vui lòng nhập số điện thoại" },
@@ -83,7 +91,11 @@ const ManageAccountAddLayout: FC<IManageAccountLayout> = (props) => {
                 <Form.Item
                   name="password"
                   required={false}
-                  label={<Typography.Text strong>Mật khẩu:</Typography.Text>}
+                  label={
+                    <Typography.Text strong>
+                      Mật khẩu: <span style={{ color: "#FF4747" }}>*</span>
+                    </Typography.Text>
+                  }
                   rules={[
                     { required: true, message: "Vui lòng nhập mật khẩu" },
                   ]}
@@ -95,7 +107,11 @@ const ManageAccountAddLayout: FC<IManageAccountLayout> = (props) => {
               <Col span={12}>
                 <Form.Item
                   name="email"
-                  label={<Typography.Text strong>Email:</Typography.Text>}
+                  label={
+                    <Typography.Text strong>
+                      Email: <span style={{ color: "#FF4747" }}>*</span>
+                    </Typography.Text>
+                  }
                   required={false}
                   rules={[
                     { required: true, message: "Vui lòng nhập email" },
@@ -110,7 +126,10 @@ const ManageAccountAddLayout: FC<IManageAccountLayout> = (props) => {
                   name="confirmPassword"
                   required={false}
                   label={
-                    <Typography.Text strong>Nhập lại mật khẩu:</Typography.Text>
+                    <Typography.Text strong>
+                      Nhập lại mật khẩu:{" "}
+                      <span style={{ color: "#FF4747" }}>*</span>
+                    </Typography.Text>
                   }
                   rules={[
                     { required: true, message: "Vui lòng nhập mật khẩu" },
@@ -138,7 +157,11 @@ const ManageAccountAddLayout: FC<IManageAccountLayout> = (props) => {
               <Col span={12}>
                 <Form.Item
                   name="role"
-                  label={<Typography.Text strong>Vai trò:</Typography.Text>}
+                  label={
+                    <Typography.Text strong>
+                      Vai trò: <span style={{ color: "#FF4747" }}>*</span>
+                    </Typography.Text>
+                  }
                   rules={[{ required: true, message: "Vui lòng chọn vai trò" }]}
                   required={false}
                 >
@@ -165,7 +188,11 @@ const ManageAccountAddLayout: FC<IManageAccountLayout> = (props) => {
               <Col span={12}>
                 <Form.Item
                   name="isActive"
-                  label={<Typography.Text strong>Tình trạng:</Typography.Text>}
+                  label={
+                    <Typography.Text strong>
+                      Tình trạng: <span style={{ color: "#FF4747" }}>*</span>
+                    </Typography.Text>
+                  }
                   rules={[
                     { required: true, message: "Vui lòng chọn tình trạng" },
                   ]}
@@ -191,6 +218,12 @@ const ManageAccountAddLayout: FC<IManageAccountLayout> = (props) => {
                 </Form.Item>
               </Col>
             </Row>
+            <div style={{ marginBottom: 40 }}>
+              <Typography.Text type="secondary">
+                <span style={{ color: "#FF4747" }}>*</span> là trường thông tin
+                bắt buộc
+              </Typography.Text>
+            </div>
           </Card>
         </Col>
       </Row>

@@ -67,6 +67,7 @@ const HeaderContent = () => {
   const breadcrumbs = useBreadcrumbs(routes, { disableDefaults: true });
   const providerState = useSelector((state: RootStore) => state.providers);
   const dispatch = useDispatch();
+  const auth = localStorage.getItem("userId");
 
   useEffect(() => {
     try {
@@ -123,19 +124,22 @@ const HeaderContent = () => {
       <div>
         <Breadcrumb separator={<RightOutlined />}>{breadcrumbItems}</Breadcrumb>
       </div>
-
-      <div className={styles.avatarContainer}>
-        <NotificationButton
-          providerNumberData={providerState.notificationCurrent}
-        />
-        <Link to="/info" className={styles.infoContainer}>
-          <Avatar size={40} src={<Image src={avatar} preview={false} />} />
-          <div className={styles.nameContainer}>
-            <Text className={styles.hello}>Xin chào</Text>
-            <Text className={styles.name}>{localStorage.getItem("name")}</Text>
-          </div>
-        </Link>
-      </div>
+      {auth ? (
+        <div className={styles.avatarContainer}>
+          <NotificationButton
+            providerNumberData={providerState.notificationCurrent}
+          />
+          <Link to="/info" className={styles.infoContainer}>
+            <Avatar size={40} src={<Image src={avatar} preview={false} />} />
+            <div className={styles.nameContainer}>
+              <Text className={styles.hello}>Xin chào</Text>
+              <Text className={styles.name}>
+                {localStorage.getItem("name")}
+              </Text>
+            </div>
+          </Link>
+        </div>
+      ) : null}
     </div>
   );
 };

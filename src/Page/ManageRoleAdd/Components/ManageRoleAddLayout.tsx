@@ -61,7 +61,11 @@ const ManageRoleAddLayout: FC<IManageRoleAddLayout> = (props) => {
               <Col span={12}>
                 <Form.Item
                   name="name"
-                  label={<Text strong>Tên vai trò</Text>}
+                  label={
+                    <Text strong>
+                      Tên vai trò <span style={{ color: "#FF4747" }}>*</span>
+                    </Text>
+                  }
                   required={false}
                   rules={[
                     { required: true, message: "Vui lòng điền tên vai trò" },
@@ -81,10 +85,24 @@ const ManageRoleAddLayout: FC<IManageRoleAddLayout> = (props) => {
                     style={{ height: "160px" }}
                   />
                 </Form.Item>
+
+                <div>
+                  <Typography.Text type="secondary">
+                    <span style={{ color: "#FF4747" }}>*</span> là trường thông
+                    tin bắt buộc
+                  </Typography.Text>
+                </div>
               </Col>
 
               <Col span={12}>
-                <Form.Item label={<Text strong>Phân quyền chức năng</Text>}>
+                <Form.Item
+                  label={
+                    <Text strong>
+                      Phân quyền chức năng{" "}
+                      <span style={{ color: "#FF4747" }}>*</span>
+                    </Text>
+                  }
+                >
                   <Card className={styles.cardCheckBox} bordered={false}>
                     <div>
                       <Title level={4} className={styles.title}>

@@ -1,0 +1,19 @@
+@import "../../../Styles/globalColor";
+
+.modalContainer {
+  padding: 32px 36px 28px 36px;
+}
+
+.title {
+  text-align: center;
+  color: $orange-500 !important;
+  margin-bottom: 50px !important;
+}
+
+.buttonContainer {
+  margin-top: 50px;
+}
+
+.btn {
+  width: 117px;
+}

@@ -1,92 +1,139 @@
-import React, { FC } from "react";
-import { Card, Col, Row, Select, Typography } from "antd";
+import React, { FC, useMemo } from "react";
+import { Card, Col, Row, Select, Tag, Typography } from "antd";
 import styles from "./ChartDashboard.module.scss";
-import Icon, { CaretDownOutlined } from "@ant-design/icons";
+import Icon, {
+  ArrowDownOutlined,
+  ArrowUpOutlined,
+  CaretDownOutlined,
+} from "@ant-design/icons";
 import Chart from "react-apexcharts";
 import { ReactComponent as providerNumberSvg } from "../../../Assets/ProviderNumber.svg";
 import { ReactComponent as providerNumberUsedSvg } from "../../../Assets/ProviderNumberUsed.svg";
 import { ReactComponent as providerNumberWaitingSvg } from "../../../Assets/ProviderNumberWaiting.svg";
 import { ReactComponent as providerNumberAbortSvg } from "../../../Assets/ProviderNumberAbort.svg";
-import { DashBoardType } from "../../../State/ActionTypes/DashBoardType";
+import { ChartDataType } from "../../../State/ActionTypes/DashBoardType";
+import { getDaysInMonth } from "../../../Utils/getTime";
+import { DayValue } from "@hassanmojab/react-modern-calendar-datepicker";
 
 interface IChartDashboard {
-  data: DashBoardType;
+  chartData: ChartDataType;
   loading: boolean;
+  chartType: string;
+  setChartType: React.Dispatch<React.SetStateAction<string>>;
+  date: DayValue;
 }
 
 const { Title, Text } = Typography;
 
-const categories: Record<string, string[]> = {
-  week: ["Thứ 2", "Thứ 3", "Thứ 4", "Thứ 5", "Thứ 6", "Thứ 7", "CN"],
-  month: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"],
-};
-
-const chartLineData = [
-  {
-    name: "Doanh Thu",
-    data: [1400, 2600, 2000, 1500, 2100, 1800, 1500],
-  },
-];
-
-const options: ApexCharts.ApexOptions = {
-  chart: {
-    width: 100,
-    toolbar: {
-      show: false,
-    },
-
-    zoom: {
-      enabled: false,
-    },
-
-    events: {
-      mounted: (chart) => {
-        chart.windowResizeHandler();
-      },
-    },
-  },
-
-  colors: ["#5185F7"],
-
-  fill: {
-    type: "gradient",
-    gradient: {
-      shadeIntensity: 1,
-      opacityFrom: 0.7,
-      opacityTo: 0.9,
-      stops: [0, 80, 100],
-    },
-  },
-
-  dataLabels: {
-    enabled: false,
-  },
-
-  xaxis: {
-    categories: categories["week"],
-  },
-
-  yaxis: {
-    labels: {
-      formatter: (value) => {
-        const valueString = value.toString();
-        return valueString;
-      },
-    },
-  },
-
-  responsive: [
-    {
-      breakpoint: 1000,
-    },
-  ],
-
-  annotations: {
-    points: [{}],
-  },
-};
-
 const ChartDashboard: FC<IChartDashboard> = (props) => {
+  const chartLineData: ApexAxisChartSeries = useMemo(
+    () => [
+      {
+        name: "Doanh Thu",
+        data: props.chartData.providerChart,
+      },
+    ],
+    [props.chartData]
+  );
+
+  const categories: Record<string, (string | number | null)[]> = {
+    day: getDaysInMonth((props.date?.month || 6) + 1, props.date?.year || 2020),
+    week: ["Tuần 1", "Tuần 2", "Tuần 3", "Tuần 4"],
+    month: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+  };
+
+  const options: ApexCharts.ApexOptions = useMemo(() => {
+    return {
+      chart: {
+        width: 100,
+        toolbar: {
+          show: false,
+        },
+
+        zoom: {
+          enabled: false,
+        },
+
+        events: {
+          mounted: (chart) => {
+            chart.windowResizeHandler();
+          },
+        },
+      },
+
+      colors: ["#5185F7"],
+
+      fill: {
+        type: "gradient",
+        gradient: {
+          shadeIntensity: 1,
+          opacityFrom: 0.7,
+          opacityTo: 0.9,
+          stops: [0, 80, 100],
+        },
+      },
+
+      dataLabels: {
+        enabled: false,
+      },
+
+      xaxis: {
+        categories: categories[props.chartType],
+      },
+
+      yaxis: {
+        labels: {
+          formatter: (value) => {
+            const valueString = value.toString();
+            return valueString;
+          },
+        },
+      },
+
+      responsive: [
+        {
+          breakpoint: 1000,
+        },
+      ],
+
+      annotations: {
+        points: [
+          {
+            x: props.chartData.annotationsPoint.x,
+            y: props.chartData.annotationsPoint.y,
+
+            marker: {
+              size: 12,
+              fillColor: "#5185F7",
+              strokeWidth: 6,
+              strokeColor: "#fff",
+            },
+            label: {
+              offsetY: -10,
+              text: props.chartData.annotationsPoint?.value?.toString(),
+              borderRadius: 8,
+              borderColor: "#5185F7",
+              style: {
+                fontSize: "14px",
+                fontWeight: 700,
+                background: "#5185F7",
+                color: "white",
+                padding: {
+                  top: 5,
+                  bottom: 5,
+                  left: 33,
+                  right: 33,
+                },
+              },
+            },
+          },
+        ],
+      },
+    };
+
+    //eslint-disable-next-line
+  }, [props.chartType, props.chartData]);
+
   return (
     <div className={styles.section}>
       <Title level={2} className={styles.title}>
@@ -107,8 +154,15 @@ const ChartDashboard: FC<IChartDashboard> = (props) => {
               </div>
             </div>
             <div className={styles.providerNumberDataValue}>
-              <Text>{props.data.providers.summary}</Text>
-              <div></div>
+              <Text>{props.chartData.static.summary}</Text>
+              <Tag
+                className={styles.tag}
+                icon={<ArrowUpOutlined />}
+                color="#FF950126"
+                style={{ color: "#FF9138" }}
+              >
+                32,41 %
+              </Tag>
             </div>
           </Card>
         </Col>
@@ -129,8 +183,15 @@ const ChartDashboard: FC<IChartDashboard> = (props) => {
               </div>
             </div>
             <div className={styles.providerNumberDataValue}>
-              <Text>{props.data.providers.used}</Text>
-              <div></div>
+              <Text>{props.chartData.static.used}</Text>
+              <Tag
+                className={styles.tag}
+                icon={<ArrowDownOutlined />}
+                color="#E73F3F26"
+                style={{ color: "#E73F3F" }}
+              >
+                32,41 %
+              </Tag>
             </div>
           </Card>
         </Col>
@@ -151,8 +212,15 @@ const ChartDashboard: FC<IChartDashboard> = (props) => {
               </div>
             </div>
             <div className={styles.providerNumberDataValue}>
-              <Text>{props.data.providers.waiting}</Text>
-              <div></div>
+              <Text>{props.chartData.static.waiting}</Text>
+              <Tag
+                className={styles.tag}
+                icon={<ArrowUpOutlined />}
+                color="#FF950126"
+                style={{ color: "#FF9138" }}
+              >
+                56,41 %
+              </Tag>
             </div>
           </Card>
         </Col>
@@ -173,8 +241,15 @@ const ChartDashboard: FC<IChartDashboard> = (props) => {
               </div>
             </div>
             <div className={styles.providerNumberDataValue}>
-              <Text>{props.data.providers.reject}</Text>
-              <div></div>
+              <Text>{props.chartData.static.reject}</Text>
+              <Tag
+                className={styles.tag}
+                icon={<ArrowDownOutlined />}
+                color="#E73F3F26"
+                style={{ color: "#E73F3F" }}
+              >
+                22,41 %
+              </Tag>
             </div>
           </Card>
         </Col>
@@ -193,6 +268,8 @@ const ChartDashboard: FC<IChartDashboard> = (props) => {
           <div>
             <Text className={styles.label}>Xem theo</Text>
             <Select
+              value={props.chartType}
+              onChange={props.setChartType}
               size="large"
               defaultValue="week"
               className={styles.select}

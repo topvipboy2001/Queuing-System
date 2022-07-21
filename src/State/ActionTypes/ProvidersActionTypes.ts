@@ -59,6 +59,9 @@ export type ProviderFilterGetServiceIDType = {
 };
 
 export type ProviderAddType = {
+  customerName: string;
+  email: string | null;
+  phoneNumber: string;
   service: string;
 };
 

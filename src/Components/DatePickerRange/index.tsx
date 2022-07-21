@@ -12,6 +12,7 @@ import { DatePicker as AntDatePicker, Popover, Space } from "antd";
 import moment, { Moment } from "moment";
 import { RangeValue } from "rc-picker/lib/interface";
 import { ArrowRight2, Calendar as CalendarIcon } from "iconsax-react";
+import { customLocale } from "./CustomLocale";
 
 interface IDatePickerRange {
   value?: RangeValue<Moment>;
@@ -96,6 +97,7 @@ const DatePickerRange = forwardRef((props: IDatePickerRange, ref) => {
       onChange={(e) => handleOnchangeCalendar(e)}
       colorPrimary="#FF7506"
       colorPrimaryLight="#FFF2E7"
+      locale={customLocale}
     />
   );
 

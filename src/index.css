@@ -16,3 +16,30 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+.Calendar__monthArrow {
+  background-image: url("./Assets/arrow.svg") !important;
+  background-size: 20px 20px !important;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+  border-radius: 43px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #ffc89b;
+  border-radius: 43px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #ff9138;
+}

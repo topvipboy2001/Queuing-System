@@ -24,6 +24,7 @@ import ServiceAdd from "../Page/ServiceAdd";
 import ServiceDetail from "../Page/ServiceDetail";
 import Services from "../Page/Services";
 import ServiceUpdate from "../Page/ServiceUpdate";
+import RequireAuth from "./RequireAuth";
 
 const { Sider, Content, Header } = Layout;
 
@@ -39,47 +40,183 @@ const ContextRoute = () => {
         </Header>
         <Content>
           <Routes>
-            <Route path="/" element={<Dashboard />} />
-            <Route path="/info" element={<Info />} />
-
+            <Route
+              path="/"
+              element={
+                <RequireAuth>
+                  <Dashboard />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="/info"
+              element={
+                <RequireAuth>
+                  <Info />
+                </RequireAuth>
+              }
+            />
             <Route path="/devices">
-              <Route index element={<Devices />} />
-              <Route path="add" element={<DeviceAdd />} />
-              <Route path="update/:id" element={<DeviceUpdate />} />
-              <Route path=":id" element={<DeviceDetail />} />
+              <Route
+                index
+                element={
+                  <RequireAuth>
+                    <Devices />
+                  </RequireAuth>
+                }
+              />
+              <Route
+                path="add"
+                element={
+                  <RequireAuth>
+                    <DeviceAdd />
+                  </RequireAuth>
+                }
+              />
+              <Route
+                path="update/:id"
+                element={
+                  <RequireAuth>
+                    <DeviceUpdate />
+                  </RequireAuth>
+                }
+              />
+              <Route
+                path=":id"
+                element={
+                  <RequireAuth>
+                    <DeviceDetail />
+                  </RequireAuth>
+                }
+              />
             </Route>
-
             <Route path="/services">
-              <Route index element={<Services />} />
-              <Route path="add" element={<ServiceAdd />} />
-              <Route path="update/:id" element={<ServiceUpdate />} />
-              <Route path=":id" element={<ServiceDetail />} />
+              <Route
+                index
+                element={
+                  <RequireAuth>
+                    <Services />
+                  </RequireAuth>
+                }
+              />
+              <Route
+                path="add"
+                element={
+                  <RequireAuth>
+                    <ServiceAdd />
+                  </RequireAuth>
+                }
+              />
+              <Route
+                path="update/:id"
+                element={
+                  <RequireAuth>
+                    <ServiceUpdate />
+                  </RequireAuth>
+                }
+              />
+              <Route
+                path=":id"
+                element={
+                  <RequireAuth>
+                    <ServiceDetail />
+                  </RequireAuth>
+                }
+              />
             </Route>
-
             <Route path="/provider">
-              <Route index element={<ProviderNumber />} />
+              <Route
+                index
+                element={
+                  <RequireAuth>
+                    <ProviderNumber />
+                  </RequireAuth>
+                }
+              />
               <Route path="add" element={<ProviderNumberAdd />} />
-              <Route path=":id" element={<ProviderNumberDetail />} />
+              <Route
+                path=":id"
+                element={
+                  <RequireAuth>
+                    <ProviderNumberDetail />
+                  </RequireAuth>
+                }
+              />
             </Route>
-
             <Route path="/report">
-              <Route index element={<Reports />} />
+              <Route
+                index
+                element={
+                  <RequireAuth>
+                    <Reports />
+                  </RequireAuth>
+                }
+              />
             </Route>
 
             <Route path="/setting">
               <Route path="accounts">
-                <Route index element={<ManageAccount />} />
-                <Route path="add" element={<ManageAccountAdd />} />
-                <Route path="update/:id" element={<ManageAccountUpdate />} />
+                <Route
+                  index
+                  element={
+                    <RequireAuth>
+                      <ManageAccount />
+                    </RequireAuth>
+                  }
+                />
+                <Route
+                  path="add"
+                  element={
+                    <RequireAuth>
+                      <ManageAccountAdd />
+                    </RequireAuth>
+                  }
+                />
+                <Route
+                  path="update/:id"
+                  element={
+                    <RequireAuth>
+                      <ManageAccountUpdate />
+                    </RequireAuth>
+                  }
+                />
               </Route>
 
               <Route path="manage-roles">
-                <Route index element={<ManageRole />} />
-                <Route path="add" element={<ManageRoleAdd />} />
-                <Route path="update/:id" element={<ManagerRoleUpdate />} />
+                <Route
+                  index
+                  element={
+                    <RequireAuth>
+                      <ManageRole />
+                    </RequireAuth>
+                  }
+                />
+                <Route
+                  path="add"
+                  element={
+                    <RequireAuth>
+                      <ManageRoleAdd />
+                    </RequireAuth>
+                  }
+                />
+                <Route
+                  path="update/:id"
+                  element={
+                    <RequireAuth>
+                      <ManagerRoleUpdate />
+                    </RequireAuth>
+                  }
+                />
               </Route>
 
-              <Route path="user-history" element={<History />} />
+              <Route
+                path="user-history"
+                element={
+                  <RequireAuth>
+                    <History />
+                  </RequireAuth>
+                }
+              />
             </Route>
           </Routes>
         </Content>
